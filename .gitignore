@@ -13,8 +13,8 @@ Twitternt-war/src/conf
 Twitternt-war/web/WEB-INF
 
 
-build.xml
-build
-dist
-nbproject
-src
+/build.xml
+/build
+/dist
+/nbproject
+/src
