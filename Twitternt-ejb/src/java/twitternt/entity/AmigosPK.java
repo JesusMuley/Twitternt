@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Jesús Muley
+ * @author Trigi
  */
 @Embeddable
 public class AmigosPK implements Serializable {

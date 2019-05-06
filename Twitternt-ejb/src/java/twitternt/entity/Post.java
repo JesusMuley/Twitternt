@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Jesús Muley
+ * @author Trigi
  */
 @Entity
 @Table(name = "post")
@@ -44,7 +44,7 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull

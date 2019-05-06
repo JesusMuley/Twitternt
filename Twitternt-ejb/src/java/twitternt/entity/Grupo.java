@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Jesús Muley
+ * @author Trigi
  */
 @Entity
 @Table(name = "grupo")
@@ -43,7 +43,7 @@ public class Grupo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -54,7 +54,7 @@ public class Grupo implements Serializable {
     @Column(name = "Descripcion")
     private String descripcion;
     @JoinTable(name = "grupo_usuarios", joinColumns = {
-        @JoinColumn(name = "grupo", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "grupo", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario", referencedColumnName = "id")})
     @ManyToMany
     private List<Usuario> usuarioList;
