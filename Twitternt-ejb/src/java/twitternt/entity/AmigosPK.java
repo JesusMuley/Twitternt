@@ -13,11 +13,10 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Trigi
+ * @author adry1
  */
 @Embeddable
 public class AmigosPK implements Serializable {
-
     @Basic(optional = false)
     @NotNull
     @Column(name = "amigo1")

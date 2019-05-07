@@ -27,23 +27,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Trigi
+ * @author adry1
  */
 @Entity
 @Table(name = "grupo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g")
-    , @NamedQuery(name = "Grupo.findById", query = "SELECT g FROM Grupo g WHERE g.id = :id")
-    , @NamedQuery(name = "Grupo.findByNombre", query = "SELECT g FROM Grupo g WHERE g.nombre = :nombre")
-    , @NamedQuery(name = "Grupo.findByDescripcion", query = "SELECT g FROM Grupo g WHERE g.descripcion = :descripcion")})
+    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g"),
+    @NamedQuery(name = "Grupo.findById", query = "SELECT g FROM Grupo g WHERE g.id = :id"),
+    @NamedQuery(name = "Grupo.findByNombre", query = "SELECT g FROM Grupo g WHERE g.nombre = :nombre"),
+    @NamedQuery(name = "Grupo.findByDescripcion", query = "SELECT g FROM Grupo g WHERE g.descripcion = :descripcion")})
 public class Grupo implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -54,7 +53,7 @@ public class Grupo implements Serializable {
     @Column(name = "Descripcion")
     private String descripcion;
     @JoinTable(name = "grupo_usuarios", joinColumns = {
-        @JoinColumn(name = "grupo", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "grupo", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario", referencedColumnName = "id")})
     @ManyToMany
     private List<Usuario> usuarioList;

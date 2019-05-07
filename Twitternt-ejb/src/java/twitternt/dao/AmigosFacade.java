@@ -12,11 +12,10 @@ import twitternt.entity.Amigos;
 
 /**
  *
- * @author Trigi
+ * @author adry1
  */
 @Stateless
 public class AmigosFacade extends AbstractFacade<Amigos> {
-
     @PersistenceContext(unitName = "Twitternt-ejbPU")
     private EntityManager em;
 
