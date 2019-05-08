@@ -3,23 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
+package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import twitternt.dao.AmigosFacade;
+import twitternt.entity.Usuario;
 
 /**
  *
  * @author Trigi
  */
-@WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class ServletMenu extends HttpServlet {
+@WebServlet(name = "AmigosServlet", urlPatterns = {"/AmigosServlet"})
+public class AmigosServlet extends HttpServlet {
+
+    @EJB
+    private AmigosFacade amigosFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +42,14 @@ public class ServletMenu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(true); 
+        List<Usuario> listaAmigos = amigosFacade.findByUser((Integer)session.getAttribute("usuario"));
+        request.setAttribute("listaAmigos", listaAmigos);
         
-        String botonPulsado = request.getParameter("boton");
+        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
+        rd.forward(request, response);
         
-        if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd1 = this.getServletContext().getRequestDispatcher("/index.jsp");
-                rd1.forward(request, response);
-        } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd2 = this.getServletContext().getRequestDispatcher("AmigosServlet");
-                rd2.forward(request, response);
         }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

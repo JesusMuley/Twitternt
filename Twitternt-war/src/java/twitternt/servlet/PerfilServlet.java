@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet;
+package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Trigi
  */
-@WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class ServletMenu extends HttpServlet {
+@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
+public class PerfilServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +32,13 @@ public class ServletMenu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String botonPulsado = request.getParameter("boton");
-        
-        if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd1 = this.getServletContext().getRequestDispatcher("/index.jsp");
-                rd1.forward(request, response);
-        } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd2 = this.getServletContext().getRequestDispatcher("AmigosServlet");
-                rd2.forward(request, response);
+            Integer userId = (Integer)request.getAttribute("usuario");
+            
+            request.setAttribute("usuario", userId);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
+            rd.forward(request, response);
         }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
