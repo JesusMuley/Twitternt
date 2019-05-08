@@ -31,13 +31,13 @@ public class AmigosFacade extends AbstractFacade<Amigos> {
     }
     
     private List<Usuario> findByUser1(Integer userId){
-        return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1 = :userId")
+        return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1 = :userId AND a.solicitudAceptada = true")
                 .setParameter("userId", userId)
                 .getResultList();
     }
     
     private List<Usuario> findByUser2(Integer userId){
-        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario = :userId")
+        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario = :userId AND a.solicitudAceptada = true")
                 .setParameter("userId", userId)
                 .getResultList();
     }

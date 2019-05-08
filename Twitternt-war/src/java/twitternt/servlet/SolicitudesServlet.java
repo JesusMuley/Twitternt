@@ -7,7 +7,6 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Trigi
  */
-@WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class ServletMenu extends HttpServlet {
+@WebServlet(name = "SolicitudesServlet", urlPatterns = {"/SolicitudesServlet"})
+public class SolicitudesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,24 +31,18 @@ public class ServletMenu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String botonPulsado = request.getParameter("boton");
-        
-        if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd1 = this.getServletContext().getRequestDispatcher("/index.jsp");
-                rd1.forward(request, response);
-        } else if (botonPulsado.equals("Amigos")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("AmigosServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Perfil")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Solicitudes")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("SolicitudesServlet");
-                rd.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SolicitudesServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SolicitudesServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
