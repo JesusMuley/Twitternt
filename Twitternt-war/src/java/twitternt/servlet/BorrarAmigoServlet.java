@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import twitternt.dao.AmigosFacade;
+import twitternt.entity.Amigos;
 import twitternt.entity.Usuario;
 
 /**
  *
  * @author Trigi
  */
-@WebServlet(name = "SolicitudesServlet", urlPatterns = {"/SolicitudesServlet"})
-public class SolicitudesServlet extends HttpServlet {
+@WebServlet(name = "BorrarAmigoServlet", urlPatterns = {"/BorrarAmigoServlet"})
+public class BorrarAmigoServlet extends HttpServlet {
 
     @EJB
     private AmigosFacade amigosFacade;
@@ -41,10 +42,12 @@ public class SolicitudesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer userId = (Integer)request.getSession().getAttribute("usuario");
+        Integer codigoAmigo = (Integer) request.getAttribute("codigoAmigo");
         
-        List<Usuario> listaSolicitudes = amigosFacade.findPetitionsByUser(userId);
+        Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession().getAttribute("usuario"));
+        amigosFacade.remove(amistadABorrar);
         
+        List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession().getAttribute("usuario"));
         request.setAttribute("listaSolicitudes", listaSolicitudes);
         
         RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");

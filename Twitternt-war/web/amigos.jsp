@@ -27,6 +27,11 @@
                 <tr>
                     <td><a href="PerfilServlet?usuario=<%=amigo.getId()%>"><%=amigo.getNombre() + " "
                                                                                         + amigo.getApellidos()%></a></td>
+                    <td><form action="EliminarAmigoServlet">
+                            <input type="hidden" name="codigoAmigo" value=<%=amigo.getId()%>>
+                            <input type="submit" value="Eliminar">
+                        </form>
+                    </td>
                 </tr>
 <%
     }

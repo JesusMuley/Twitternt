@@ -47,7 +47,6 @@ public class ServletMenu extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Solicitudes")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("SolicitudesServlet");
                 rd.forward(request, response);
         }
