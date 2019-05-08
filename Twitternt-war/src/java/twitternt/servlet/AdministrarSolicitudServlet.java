@@ -6,20 +6,29 @@
 package twitternt.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import twitternt.dao.AmigosFacade;
+import twitternt.entity.Amigos;
+import twitternt.entity.Usuario;
 
 /**
  *
  * @author Trigi
  */
-@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
-public class PerfilServlet extends HttpServlet {
+@WebServlet(name = "AdministrarSolicitudServlet", urlPatterns = {"/AdministrarSolicitudServlet"})
+public class AdministrarSolicitudServlet extends HttpServlet {
+
+    @EJB
+    private AmigosFacade amigosFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,13 +41,26 @@ public class PerfilServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            Integer userId = (Integer)request.getSession().getAttribute("usuario");
-            
-            request.setAttribute("usuario", userId);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
-            rd.forward(request, response);
+        Integer userId = (Integer) request.getSession().getAttribute("usuario");
+        Integer codigoSolicitud = (Integer) request.getAttribute("solicitud");
+        String opcion = request.getParameter("boton");
+        
+        Amigos solicitud = amigosFacade.findByPair(codigoSolicitud, userId);
+        
+        if (opcion.equals("Rechazar")){
+            amigosFacade.remove(solicitud);   
+        } else{
+            solicitud.setSolicitudAceptada(Boolean.TRUE);
+            amigosFacade.edit(solicitud);
         }
+        
+        List<Usuario> solicitudes = amigosFacade.findPetitionsByUser(userId);
+        
+        request.setAttribute("listaSolicitudes", solicitudes);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -13,10 +13,32 @@ List<Usuario> listaSolicitudes = (List<Usuario>) request.getAttribute("listaSoli
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="cssGeneral.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Solicitudes de amistad</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="pagina">
+            <table>
+<%
+    for (Usuario solicitud : listaSolicitudes){
+%>
+                <tr>
+                    <td><a href="PerfilServlet?usuario=<%=solicitud.getId()%>"><%=solicitud.getNombre() + " "
+                            + solicitud.getApellidos()%></a></td>
+                    <td>
+                        <form action="AdministrarSolicitudServlet">
+                            <input type="hidden" name="solicitud" value=<%=solicitud.getId()%>>
+                            <input type="submit" name="boton" value="Aceptar">
+                            <input type="submit" name="boton" value="Rechazar">
+                        </form>
+                    </td>
+                                                                                        
+                </tr>
+<%
+    }
+%>
+            </table>
+        </div>
     </body>
 </html>

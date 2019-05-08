@@ -50,7 +50,7 @@ public class BorrarAmigoServlet extends HttpServlet {
         List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession().getAttribute("usuario"));
         request.setAttribute("listaSolicitudes", listaSolicitudes);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
         rd.forward(request, response);
     }
 

@@ -70,6 +70,14 @@
                             </form>
                         </td>
                     </tr>
+                    
+                    <tr>
+                        <td>
+                            <form action="ServletMenu">
+                                <input type="submit" name="boton" value="Grupos" class="botonMenu"><br>
+                            </form>
+                        </td>
+                    </tr>
                 </table>
         </div>
     </body>

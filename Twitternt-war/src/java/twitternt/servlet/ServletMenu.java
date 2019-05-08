@@ -36,18 +36,19 @@ public class ServletMenu extends HttpServlet {
         String botonPulsado = request.getParameter("boton");
         
         if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd1 = this.getServletContext().getRequestDispatcher("/index.jsp");
-                rd1.forward(request, response);
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
         } else if (botonPulsado.equals("Amigos")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("AmigosServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Perfil")){
-                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Solicitudes")){
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("SolicitudesServlet");
+                rd.forward(request, response);
+        } else if (botonPulsado.equals("Grupos")){
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("GruposServlet");
                 rd.forward(request, response);
         }
     }
