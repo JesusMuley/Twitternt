@@ -39,8 +39,13 @@ public class ServletMenu extends HttpServlet {
                 RequestDispatcher rd1 = this.getServletContext().getRequestDispatcher("/index.jsp");
                 rd1.forward(request, response);
         } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd2 = this.getServletContext().getRequestDispatcher("AmigosServlet");
-                rd2.forward(request, response);
+                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("AmigosServlet");
+                rd.forward(request, response);
+        } else if (botonPulsado.equals("Perfil")){
+                request.setAttribute("usuario", request.getSession().getAttribute("usuario"));
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
+                rd.forward(request, response);
         }
     }
 

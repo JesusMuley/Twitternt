@@ -3,7 +3,7 @@
     Created on : 30-abr-2019, 15:54:29
     Author     : Trigi
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,6 +55,13 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <td>
+                            <form action="ServletMenu">
+                                <input type="submit" name="boton" value="Perfil" class="botonMenu"><br>
+                            </form>
+                        </td>
+                    </tr>
                 </table>
         </div>
     </body>
