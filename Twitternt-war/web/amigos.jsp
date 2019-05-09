@@ -7,6 +7,7 @@
 <%@page import="twitternt.entity.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="menu.jsp"/>
 <%
     List<Usuario> listaAmigos = (List<Usuario>)request.getAttribute("listaAmigos");
 %>
