@@ -41,14 +41,20 @@ public class SolicitudesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer userId = (Integer)request.getSession().getAttribute("usuario");
-        
-        List<Usuario> listaSolicitudes = amigosFacade.findPetitionsByUser(userId);
-        
-        request.setAttribute("listaSolicitudes", listaSolicitudes);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
-        rd.forward(request, response);
+        try {
+            Integer userId = (Integer) request.getSession().getAttribute("usuario");
+            
+            List<Usuario> listaSolicitudes = amigosFacade.findPetitionsByUser(userId);
+            
+            request.setAttribute("listaSolicitudes", listaSolicitudes);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al cargar la página de solicitudes de amistad.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

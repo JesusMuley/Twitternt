@@ -32,12 +32,18 @@ public class PerfilServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            Integer userId = (Integer)request.getSession().getAttribute("usuario");
+        try {
+            Integer userId = (Integer) request.getSession().getAttribute("usuario");
             
             request.setAttribute("usuario", userId);
             
             RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
             rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al cargar el perfil.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
         }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

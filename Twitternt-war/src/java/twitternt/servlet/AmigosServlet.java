@@ -42,14 +42,19 @@ public class AmigosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true); 
-        List<Usuario> listaAmigos = amigosFacade.findByUser((Integer)session.getAttribute("usuario"));
-        request.setAttribute("listaAmigos", listaAmigos);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
-        rd.forward(request, response);
-        
+        try {
+            HttpSession session = request.getSession(true);            
+            List<Usuario> listaAmigos = amigosFacade.findByUser((Integer) session.getAttribute("usuario"));
+            request.setAttribute("listaAmigos", listaAmigos);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al cargar la página de amigos.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

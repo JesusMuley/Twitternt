@@ -42,16 +42,22 @@ public class BorrarAmigoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer codigoAmigo = (Integer) request.getAttribute("codigoAmigo");
-        
-        Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession().getAttribute("usuario"));
-        amigosFacade.remove(amistadABorrar);
-        
-        List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession().getAttribute("usuario"));
-        request.setAttribute("listaSolicitudes", listaSolicitudes);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
-        rd.forward(request, response);
+        try {
+            Integer codigoAmigo = (Integer) request.getAttribute("codigoAmigo");
+            
+            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession().getAttribute("usuario"));
+            amigosFacade.remove(amistadABorrar);
+            
+            List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession().getAttribute("usuario"));
+            request.setAttribute("listaSolicitudes", listaSolicitudes);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al intentar eliminar un amigo.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

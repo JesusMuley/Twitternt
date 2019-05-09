@@ -41,25 +41,31 @@ public class AdministrarSolicitudServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer userId = (Integer) request.getSession().getAttribute("usuario");
-        Integer codigoSolicitud = (Integer) request.getAttribute("solicitud");
-        String opcion = request.getParameter("boton");
-        
-        Amigos solicitud = amigosFacade.findByPair(codigoSolicitud, userId);
-        
-        if (opcion.equals("Rechazar")){
-            amigosFacade.remove(solicitud);   
-        } else{
-            solicitud.setSolicitudAceptada(Boolean.TRUE);
-            amigosFacade.edit(solicitud);
+        try {
+            Integer userId = (Integer) request.getSession().getAttribute("usuario");
+            Integer codigoSolicitud = (Integer) request.getAttribute("solicitud");
+            String opcion = request.getParameter("boton");
+            
+            Amigos solicitud = amigosFacade.findByPair(codigoSolicitud, userId);
+            
+            if (opcion.equals("Rechazar")) {
+                amigosFacade.remove(solicitud);                
+            } else {
+                solicitud.setSolicitudAceptada(Boolean.TRUE);
+                amigosFacade.edit(solicitud);
+            }
+            
+            List<Usuario> solicitudes = amigosFacade.findPetitionsByUser(userId);
+            
+            request.setAttribute("listaSolicitudes", solicitudes);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al aceptar o rechazar la solicitud.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
-        
-        List<Usuario> solicitudes = amigosFacade.findPetitionsByUser(userId);
-        
-        request.setAttribute("listaSolicitudes", solicitudes);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
