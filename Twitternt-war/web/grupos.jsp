@@ -29,7 +29,12 @@
 %>
                 <tr>
                     <td>
-                        <a href="PerfilServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                        <a href="GrupoServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                    </td>
+                    <td><form action="SalirGrupoServlet">
+                            <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
+                            <input type="submit" value="Salir">
+                        </form>
                     </td>
                 </tr>
 <%
@@ -43,14 +48,29 @@
     for (Grupo grupo : gruposAdmin){
 %>
                 <tr>
-                    <td> //hay q pasar aqui si es admin?
-                        <a href="PerfilServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                    <td>
+                        
+                        <a href="GrupoServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                    </td>
+                     <td><form action="SalirGrupoServlet">
+                            <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
+                            <input type="submit" value="Salir">
+                        </form>
+                    </td>
+                    <td><form action="EliminarGrupoServlet">
+                            <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
+                            <input type="submit" value="Eliminar">
+                        </form>
                     </td>
                 </tr>
 <%
     }
 %>
-             </table>
+            </table>
+            <br/>
+            <form action="CrearGrupoServlet">
+                <input type="submit" value="Nuevo Grupo">
+            </form>
         </div>  
     </body>
 </html>
