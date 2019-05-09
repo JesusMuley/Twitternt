@@ -12,10 +12,11 @@ import twitternt.entity.Post;
 
 /**
  *
- * @author adry1
+ * @author Jesús Muley
  */
 @Stateless
 public class PostFacade extends AbstractFacade<Post> {
+
     @PersistenceContext(unitName = "Twitternt-ejbPU")
     private EntityManager em;
 

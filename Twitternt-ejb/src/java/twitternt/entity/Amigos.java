@@ -18,18 +18,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author adry1
+ * @author Jesús Muley
  */
 @Entity
 @Table(name = "amigos")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a"),
-    @NamedQuery(name = "Amigos.findByAmigo1", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1"),
-    @NamedQuery(name = "Amigos.findByAmigo2", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2"),
-    @NamedQuery(name = "Amigos.findByPair", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2 AND a.amigosPK.amigo1 = :amigo1 OR a.amigosPK.amigo2 = :amigo1 AND a.amigosPK.amigo1 = :amigo2"),
-    @NamedQuery(name = "Amigos.findBySolicitudAceptada", query = "SELECT a FROM Amigos a WHERE a.solicitudAceptada = :solicitudAceptada")})
+    @NamedQuery(name = "Amigos.findAll", query = "SELECT a FROM Amigos a")
+    , @NamedQuery(name = "Amigos.findByAmigo1", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo1 = :amigo1")
+    , @NamedQuery(name = "Amigos.findByAmigo2", query = "SELECT a FROM Amigos a WHERE a.amigosPK.amigo2 = :amigo2")
+    , @NamedQuery(name = "Amigos.findBySolicitudAceptada", query = "SELECT a FROM Amigos a WHERE a.solicitudAceptada = :solicitudAceptada")})
 public class Amigos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected AmigosPK amigosPK;

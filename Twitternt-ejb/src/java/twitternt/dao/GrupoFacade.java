@@ -12,10 +12,11 @@ import twitternt.entity.Grupo;
 
 /**
  *
- * @author adry1
+ * @author Jesús Muley
  */
 @Stateless
 public class GrupoFacade extends AbstractFacade<Grupo> {
+
     @PersistenceContext(unitName = "Twitternt-ejbPU")
     private EntityManager em;
 
