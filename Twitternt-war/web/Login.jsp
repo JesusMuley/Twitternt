@@ -24,7 +24,7 @@
             <input type="submit" value="Iniciar sesión">  
         </form>
         
-        <form action="RegistroServlet" method="post">
+        <form action="Registro.jsp" method="post">
             <br>
             <input type="submit" value="Registrarse">
             

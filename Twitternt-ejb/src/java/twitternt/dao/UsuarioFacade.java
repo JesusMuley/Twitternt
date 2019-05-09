@@ -5,9 +5,11 @@
  */
 package twitternt.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import twitternt.entity.Usuario;
 
 /**
@@ -28,5 +30,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
+    
+    
+    public Usuario findByUserName(String name){
+        Query q;
+        
+        q = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE :id");
+        q.setParameter("id", "%" + name + "%");
+        
+        return (Usuario)q.getSingleResult();
+    }
+    
     
 }
