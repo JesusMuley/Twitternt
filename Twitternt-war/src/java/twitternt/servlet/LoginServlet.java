@@ -51,9 +51,8 @@ public class LoginServlet extends HttpServlet {
             String nombre = request.getParameter("Usuario");
             String password = request.getParameter("Password");
             u = usuarioFacade.findByUserName(nombre);
-            System.out.println(u.getPassword() + " " + password);
             if (u.getPassword().equalsIgnoreCase(password)) {
-                session.setAttribute("usuario", u);
+                session.setAttribute("usuario", u.getId());
                 rdExito.forward(request, response);
             }
             

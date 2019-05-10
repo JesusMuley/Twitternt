@@ -43,12 +43,12 @@ public class BorrarAmigoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Integer codigoAmigo = (Integer) request.getAttribute("codigoAmigo");
+            Integer codigoAmigo = Integer.parseInt(request.getParameter("codigoAmigo"));
             
-            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession().getAttribute("usuario"));
+            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession(true).getAttribute("usuario"));
             amigosFacade.remove(amistadABorrar);
             
-            List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession().getAttribute("usuario"));
+            List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession(true).getAttribute("usuario"));
             request.setAttribute("listaSolicitudes", listaSolicitudes);
             
             RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
