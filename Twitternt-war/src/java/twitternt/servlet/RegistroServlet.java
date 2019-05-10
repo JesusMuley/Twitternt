@@ -41,7 +41,6 @@ public class RegistroServlet extends HttpServlet {
         
         Usuario u = new Usuario();
         String str = request.getParameter("usuario");
-        
         if(usuarioFacade.findByUserName(str) == null){
             u.setNombreUsuario(str);
             str = request.getParameter("password");

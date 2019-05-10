@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Trigi
  */
 @WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class ServletMenu extends HttpServlet {
+public class MenuServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
