@@ -8,12 +8,14 @@ package twitternt.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Usuario;
 
@@ -39,21 +41,27 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher rdExito = this.getServletContext().getRequestDispatcher("/menu.jsp");
-        RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
-
-        Usuario u = new Usuario();
-        
-        String nombre = request.getParameter("Usuario");
-        String password = request.getParameter("password");
-        u = usuarioFacade.findByUserName(nombre);
-        
-        if(u.getPassword().equalsIgnoreCase(password)){
-            request.setAttribute("usuario", u);
-            rdExito.forward(request, response);
-        }
-        
-        rdFallo.forward(request, response);
+        try {
+            HttpSession session = request.getSession(true);
+            RequestDispatcher rdExito = this.getServletContext().getRequestDispatcher("/menu.jsp");
+            RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
+            
+            Usuario u = new Usuario();
+            
+            String nombre = request.getParameter("Usuario");
+            String password = request.getParameter("Password");
+            u = usuarioFacade.findByUserName(nombre);
+            System.out.println(u.getPassword() + " " + password);
+            if (u.getPassword().equalsIgnoreCase(password)) {
+                session.setAttribute("usuario", u);
+                rdExito.forward(request, response);
+            }
+            
+            
+        } catch (EJBException ex) {
+            RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
+            rdFallo.forward(request, response);
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
