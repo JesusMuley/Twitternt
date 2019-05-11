@@ -36,7 +36,7 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
     //           .setParameter("user", user).getResultList();
     //}
 
-    public List<Grupo> findGroupsWithAdmin(int user) {
+    public List<Grupo> findGroupsWithAdmin(Integer user) {
         return em.createQuery("SELECT g FROM Grupo g WHERE g.admin.id = :user")
                 .setParameter("user", user).getResultList(); 
     }
