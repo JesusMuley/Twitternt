@@ -18,7 +18,7 @@
             border-width: 2px
         }
         .botonMenu{
-            width:  70px;
+            width:  85px;
             height: 25px;
             margin-top: 5px;
             background-color: khaki;

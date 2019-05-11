@@ -39,16 +39,16 @@ public class MenuServlet extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("AmigosServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/AmigosServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Perfil")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/PerfilServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Solicitudes")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("SolicitudesServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/SolicitudesServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Grupos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("GruposServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("7GruposServlet");
                 rd.forward(request, response);
         }
     }

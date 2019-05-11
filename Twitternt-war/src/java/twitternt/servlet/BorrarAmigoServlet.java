@@ -26,9 +26,9 @@ import twitternt.entity.Usuario;
 @WebServlet(name = "BorrarAmigoServlet", urlPatterns = {"/BorrarAmigoServlet"})
 public class BorrarAmigoServlet extends HttpServlet {
 
-    @EJB
-    private AmigosFacade amigosFacade;
     
+    @EJB
+    AmigosFacade amigosFacade;
     
 
     /**
@@ -43,17 +43,19 @@ public class BorrarAmigoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            Integer usuario = (Integer) request.getSession(false).getAttribute("usuario");
             Integer codigoAmigo = Integer.parseInt(request.getParameter("codigoAmigo"));
             
-            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, (Integer) request.getSession(true).getAttribute("usuario"));
+            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, usuario);
             amigosFacade.remove(amistadABorrar);
             
-            List<Usuario> listaSolicitudes = amigosFacade.findByUser((Integer) request.getSession(true).getAttribute("usuario"));
-            request.setAttribute("listaSolicitudes", listaSolicitudes);
+            List<Usuario> listaAmigos = amigosFacade.findByUser(usuario);
+            request.setAttribute("listaAmigos", listaAmigos);
             
             RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
+            e.printStackTrace();
             request.setAttribute("error", "Error al intentar eliminar un amigo.");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
