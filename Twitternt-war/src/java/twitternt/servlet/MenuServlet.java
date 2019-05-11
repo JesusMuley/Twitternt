@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Trigi
  */
 @WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class ServletMenu extends HttpServlet {
+public class MenuServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,16 +39,16 @@ public class ServletMenu extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/AmigosServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("AmigosServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Perfil")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/PerfilServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("PerfilServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Solicitudes")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/SolicitudesServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("SolicitudesServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Grupos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/GruposServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("GruposServlet");
                 rd.forward(request, response);
         }
     }

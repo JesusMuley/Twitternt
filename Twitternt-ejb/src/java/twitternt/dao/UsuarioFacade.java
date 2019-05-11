@@ -8,6 +8,7 @@ package twitternt.dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import twitternt.entity.Usuario;
@@ -33,12 +34,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     
     
     public Usuario findByUserName(String name){
-        Query q;
-        
-        q = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario = :id");
-        q.setParameter("id", name);
-        
-        return (Usuario)q.getSingleResult();
+        Usuario res;
+        try{
+          res = (Usuario)em.createNamedQuery("Usuario.findByNombreUsuario").setParameter("nombreUsuario", name).getSingleResult();
+        }catch(Exception e){
+            res = null;
+            return res;
+        }
+        return res;
     }
     
     

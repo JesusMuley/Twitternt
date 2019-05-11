@@ -7,6 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%
+      String fallo = (String)request.getAttribute("fallo");
+    %>
+    
+    
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Twittern't</title>
@@ -15,17 +21,26 @@
         <h1>Bienvenido a Twittern't</h1>
         <p>Inicia sesi&oacute;n o reg&iacute;strate</p>
         
+        <%
+          String str;
+          if(fallo != null && fallo.equals("s")){
+            str = " <br/>  Fallo al registrar";
+          }else{
+            str = "";
+          }
+        %>
+        <h3> <%=str%> </h3>
         <form action="LoginServlet" method="post">
-            Nombre de usuario <br>
-            <input type="text" name="Usuario"><br>
-            Contraseña <br>
-            <input type="password" name="Password"><br>
-            <br>
-            <input type="submit" value="Iniciar sesión">  
+            Nombre de usuario <br/>
+            <input type="text" name="Usuario"><br/>
+            Contraseña <br/>
+            <input type="password" name="Password"><br/>
+            <br/>
+            <input type="submit" value="Iniciar sesión"/>  
         </form>
         
         <form action="Registro.jsp" method="post">
-            <br>
+            <br/>
             <input type="submit" value="Registrarse">
             
             

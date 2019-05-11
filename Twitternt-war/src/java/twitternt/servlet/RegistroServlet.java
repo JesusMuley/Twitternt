@@ -39,10 +39,12 @@ public class RegistroServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String fallo = "s";
+        
         Usuario u = new Usuario();
         String str = request.getParameter("usuario");
-        
         if(usuarioFacade.findByUserName(str) == null){
+            fallo = "n";
             u.setNombreUsuario(str);
             str = request.getParameter("password");
             u.setPassword(str);
@@ -56,7 +58,7 @@ public class RegistroServlet extends HttpServlet {
             usuarioFacade.create(u);
         }
         
-     
+        request.setAttribute("fallo", fallo);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Login.jsp");
         rd.forward(request, response);
