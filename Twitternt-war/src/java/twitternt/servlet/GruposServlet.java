@@ -8,6 +8,7 @@ package twitternt.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,16 +39,21 @@ public class GruposServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true); 
-        Usuario u = new Usuario((Integer)session.getAttribute("usuario"));
-        List<Grupo> grupos = u.getGrupoList();
-        List<Grupo> gruposAdmin = u.getGrupoList1();
-        
-        request.setAttribute("listaGrupos", grupos);
-        request.setAttribute("listaGruposAdmin", gruposAdmin);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/grupos.jsp");
-        rd.forward(request, response);
+        try {
+            HttpSession session = request.getSession(true);      
+            //List<Grupo> grupos = grupoFacade.findGroupsWithUser((Integer) session.getAttribute("usuario"));
+            List<Grupo> gruposAdmin = grupoFacade.findGroupsWithAdmin((Integer) session.getAttribute("usuario"));
+
+            //request.setAttribute("listaGrupos", grupos);
+            request.setAttribute("listaGruposAdmin", gruposAdmin);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/grupos.jsp");
+            rd.forward(request, response);
+        }catch (Exception e) {
+            request.setAttribute("error", "Error al cargar la página de grupos.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);    
+        }
         
     }
 

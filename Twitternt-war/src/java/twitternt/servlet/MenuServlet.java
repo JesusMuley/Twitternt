@@ -48,7 +48,7 @@ public class MenuServlet extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/SolicitudesServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Grupos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("7GruposServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/GruposServlet");
                 rd.forward(request, response);
         }
     }

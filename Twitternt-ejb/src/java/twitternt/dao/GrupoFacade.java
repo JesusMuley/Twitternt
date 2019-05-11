@@ -5,10 +5,12 @@
  */
 package twitternt.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import twitternt.entity.Grupo;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -28,5 +30,16 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
     public GrupoFacade() {
         super(Grupo.class);
     }
+
+    //public List<Grupo> findGroupsWithUser(Integer user) {
+    //  return em.createQuery("SELECT DISTINCT g FROM Grupo g WHERE g.usuarioList.contains(:user)")
+    //           .setParameter("user", user).getResultList();
+    //}
+
+    public List<Grupo> findGroupsWithAdmin(int user) {
+        return em.createQuery("SELECT g FROM Grupo g WHERE g.admin.id = :user")
+                .setParameter("user", user).getResultList(); 
+    }
+
     
 }

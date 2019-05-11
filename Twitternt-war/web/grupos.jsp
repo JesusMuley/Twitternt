@@ -10,7 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    List<Grupo> grupos = (List<Grupo>)request.getAttribute("listaGrupos");
+   // List<Grupo> grupos = (List<Grupo>)request.getAttribute("listaGrupos");
     List<Grupo> gruposAdmin = (List<Grupo>)request.getAttribute("listaGruposAdmin");
 %>
 <!DOCTYPE html>
@@ -22,27 +22,10 @@
     </head>
     <body>
         <div class="pagina">
-            <h2>Mis Grupos</h2>
-            <table>
-<%
-    for (Grupo grupo : grupos){
-%>
-                <tr>
-                    <td>
-                        <a href="GrupoServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
-                    </td>
-                    <td><form action="SalirGrupoServlet">
-                            <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
-                            <input type="submit" value="Salir">
-                        </form>
-                    </td>
-                </tr>
-<%
-    }
-%>
-            </table>
+            <h2>Mis Grupos</h2><br/>
+
              <br/>
-            <h2>Grupos que Administro</h2>
+            <h2>Grupos que Administro</h2><br/>
             <table>
 <%
     for (Grupo grupo : gruposAdmin){
@@ -68,7 +51,7 @@
 %>
             </table>
             <br/>
-            <form action="CrearGrupoServlet">
+            <form action="crearGrupo.jsp">
                 <input type="submit" value="Nuevo Grupo">
             </form>
         </div>  
