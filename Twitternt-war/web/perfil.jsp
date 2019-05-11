@@ -27,7 +27,12 @@
         Apellidos <br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
         Correo electr&oacute;nico <br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
         
-        
+        <form action="EnviarSolicitudServlet">
+            <input type="submit" value="Enviar solicitud de amistad">
+            
+            
+            
+        </form>
         
     </body>
 </html>

@@ -44,20 +44,19 @@ public class LoginServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             RequestDispatcher rdExito = this.getServletContext().getRequestDispatcher("/IndexServlet");
-            RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
             
             Usuario u = new Usuario();
             
             String nombre = request.getParameter("Usuario");
             String password = request.getParameter("Password");
             u = usuarioFacade.findByUserName(nombre);
-            if (u.getPassword().equalsIgnoreCase(password)) {
+            if (u.getPassword().equals(password)) {
                 session.setAttribute("usuario", u.getId());
                 rdExito.forward(request, response);
             }
             
             
-        } catch (EJBException ex) {
+        } catch (Exception ex) {
             RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
             rdFallo.forward(request, response);
         }   

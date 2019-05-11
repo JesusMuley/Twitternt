@@ -7,25 +7,18 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import twitternt.dao.UsuarioFacade;
-import twitternt.entity.Usuario;
 
 /**
  *
  * @author Jesús Muley
  */
-@WebServlet(name = "RegistroServlet", urlPatterns = {"/RegistroServlet"})
-public class RegistroServlet extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "EnviarSolicitudServlet", urlPatterns = {"/EnviarSolicitudServlet"})
+public class EnviarSolicitudServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,30 +32,6 @@ public class RegistroServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String fallo = "s";
-        
-        Usuario u = new Usuario();
-        String str = request.getParameter("usuario");
-        
-        if(usuarioFacade.findByUserName(str) == null){
-            fallo = "n";
-            u.setNombreUsuario(str);
-            str = request.getParameter("password");
-            u.setPassword(str);
-            str = request.getParameter("nombre");
-            u.setNombre(str);
-            str = request.getParameter("apellidos");
-            u.setApellidos(str);
-            str = request.getParameter("correo");
-            u.setEmail(str);
-            u.setImagen(null);
-            usuarioFacade.create(u);
-        }
-        
-        request.setAttribute("fallo", fallo);
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Login.jsp");
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
