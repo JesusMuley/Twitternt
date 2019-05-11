@@ -46,7 +46,7 @@ public class BorrarAmigoServlet extends HttpServlet {
             Integer usuario = (Integer) request.getSession(false).getAttribute("usuario");
             Integer codigoAmigo = Integer.parseInt(request.getParameter("codigoAmigo"));
             
-            Amigos amistadABorrar = amigosFacade.findByPair(codigoAmigo, usuario);
+            Amigos amistadABorrar = amigosFacade.findFriendByPair(codigoAmigo, usuario);
             amigosFacade.remove(amistadABorrar);
             
             List<Usuario> listaAmigos = amigosFacade.findByUser(usuario);

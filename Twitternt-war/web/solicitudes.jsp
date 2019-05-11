@@ -29,7 +29,7 @@ List<Usuario> listaSolicitudes = (List<Usuario>) request.getAttribute("listaSoli
                             + solicitud.getApellidos()%></a></td>
                     <td>
                         <form action="AdministrarSolicitudServlet">
-                            <input type="hidden" name="solicitud" value=<%=solicitud.getId()%>>
+                            <input type="hidden" name="solicitud" value="<%=solicitud.getId()%>">
                             <input type="submit" name="boton" value="Aceptar">
                             <input type="submit" name="boton" value="Rechazar">
                         </form>

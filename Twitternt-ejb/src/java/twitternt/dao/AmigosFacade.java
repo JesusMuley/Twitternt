@@ -51,25 +51,34 @@ public class AmigosFacade extends AbstractFacade<Amigos> {
     }
     
         private List<Usuario> findPetitionsByUser1(Integer userId){
-        return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1 = :userId AND a.solicitudAceptada = false")
+        return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1.id = :userId AND a.solicitudAceptada = FALSE")
                 .setParameter("userId", userId)
                 .getResultList();
     }
     
     private List<Usuario> findPetitionsByUser2(Integer userId){
-        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario = :userId AND a.solicitudAceptada = false")
+        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario.id = :userId AND a.solicitudAceptada = FALSE")
                 .setParameter("userId", userId)
                 .getResultList();
     }
     
     public List<Usuario> findPetitionsByUser(Integer userId){
         List<Usuario> lista = findPetitionsByUser1(userId);
-        lista.addAll(findPetitionsByUser2(userId));
+        List<Usuario> lista1 = findPetitionsByUser2(userId);
+        if (lista1.size() > 0)
+            lista.addAll(findPetitionsByUser2(userId));
         return lista;
     }
 
-    public Amigos findByPair(Integer codigoAmigo, Integer userId) {
-        return (Amigos) em.createNamedQuery("Amigos.findByPair")
+    public Amigos findFriendByPair(Integer codigoAmigo, Integer userId) {
+        return (Amigos) em.createNamedQuery("Amigos.findFriendByPair")
+                .setParameter("amigo1", codigoAmigo)
+                .setParameter("amigo2", userId)
+                .getSingleResult();
+    }
+    
+    public Amigos findPetitionByPair(Integer codigoAmigo, Integer userId) {
+        return (Amigos) em.createNamedQuery("Amigos.findPetitionByPair")
                 .setParameter("amigo1", codigoAmigo)
                 .setParameter("amigo2", userId)
                 .getSingleResult();

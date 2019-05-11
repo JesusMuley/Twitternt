@@ -42,7 +42,7 @@ public class SolicitudesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Integer userId = (Integer) request.getSession().getAttribute("usuario");
+            Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
             
             List<Usuario> listaSolicitudes = amigosFacade.findPetitionsByUser(userId);
             

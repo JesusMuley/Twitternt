@@ -42,11 +42,11 @@ public class AdministrarSolicitudServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Integer userId = (Integer) request.getSession().getAttribute("usuario");
+            Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
             Integer codigoSolicitud = (Integer) request.getAttribute("solicitud");
             String opcion = request.getParameter("boton");
             
-            Amigos solicitud = amigosFacade.findByPair(codigoSolicitud, userId);
+            Amigos solicitud = amigosFacade.findPetitionByPair(codigoSolicitud, userId);
             
             if (opcion.equals("Rechazar")) {
                 amigosFacade.remove(solicitud);                
