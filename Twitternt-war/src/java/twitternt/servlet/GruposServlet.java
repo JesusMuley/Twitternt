@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import twitternt.dao.GrupoFacade;
+import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Grupo;
 import twitternt.entity.Usuario;
 
@@ -26,8 +28,11 @@ import twitternt.entity.Usuario;
  */
 @WebServlet(name = "GruposServlet", urlPatterns = {"/GruposServlet"})
 public class GruposServlet extends HttpServlet {
+        
+    @EJB
+    private UsuarioFacade uf;
 
-    private GrupoFacade grupoFacade;
+    //private GrupoFacade grupoFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,16 +45,17 @@ public class GruposServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession(true);      
-            //List<Grupo> grupos = grupoFacade.findGroupsWithUser((Integer) session.getAttribute("usuario"));
-            List<Grupo> gruposAdmin = grupoFacade.findGroupsWithAdmin((Integer) session.getAttribute("usuario"));
-
-            //request.setAttribute("listaGrupos", grupos);
+            HttpSession session = request.getSession(true); 
+            Usuario u = uf.findById((Integer) session.getAttribute("usuario"));
+            List<Grupo> grupos = u.getGrupoList();
+            List<Grupo> gruposAdmin = u.getGrupoList1();
+            request.setAttribute("listaGrupos", grupos);
             request.setAttribute("listaGruposAdmin", gruposAdmin);
             
             RequestDispatcher rd = request.getRequestDispatcher("/grupos.jsp");
             rd.forward(request, response);
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
             request.setAttribute("error", "Error al cargar la página de grupos.");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);    

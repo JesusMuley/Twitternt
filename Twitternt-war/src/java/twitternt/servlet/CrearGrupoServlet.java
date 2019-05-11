@@ -7,11 +7,19 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import twitternt.dao.GrupoFacade;
+import twitternt.dao.UsuarioFacade;
+import twitternt.entity.Grupo;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -19,6 +27,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CrearGrupoServlet", urlPatterns = {"/CrearGrupoServlet"})
 public class CrearGrupoServlet extends HttpServlet {
+    
+    @EJB
+    private GrupoFacade grupoFacade;
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +44,25 @@ public class CrearGrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CrearGrupoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CrearGrupoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            HttpSession session = request.getSession(true); 
+            Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+            Grupo g = new Grupo(1, request.getParameter("nombre"));
+            g.setAdmin(u);
+            g.setDescripcion(request.getParameter("descripcion"));
+            grupoFacade.create(g);
+            u.addGrupo(g);
+            u.addGrupo1(g);
+            usuarioFacade.edit(u);
+            
+            
+            RequestDispatcher rd = request.getRequestDispatcher("GruposServlet");
+            rd.forward(request, response);
+        }
+        catch (Exception e) {
+            request.setAttribute("error", "Error al cargar la página de grupos.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);    
         }
     }
 
