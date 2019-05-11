@@ -5,6 +5,7 @@
  */
 package twitternt.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,4 +30,10 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
+        public List<Post> findByVisibilidad(int visibilidad){
+        return em.createQuery("SELECT p FROM Post p WHERE p.visibilidad = :visibilidad ORDER BY p.fechaPublicacion DESC")
+                .setParameter("visiblidad", visibilidad)
+                .getResultList();
+}
+       // Convenio Visibilidad: 0 Publico 1 Amigos 2 Privado
 }
