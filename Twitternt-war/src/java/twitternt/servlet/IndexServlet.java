@@ -56,18 +56,8 @@ public class IndexServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);            
             List<Post> listaPost = postFacade.findByVisibilidad(0);
-            Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
-             Integer n_amigos = 0;
-             Integer n_grupos = 0;
-            if (u.getAmigosList() != null){
-            n_amigos = u.getAmigosList().size();
-            }
-            if (u.getGrupoList() != null){
-            n_grupos = u.getGrupoList().size();
-            }
+
             request.setAttribute("listaPost", listaPost);
-            request.setAttribute("n_amigos", n_amigos);
-            request.setAttribute("n_grupos", n_grupos);
             
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);

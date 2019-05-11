@@ -32,7 +32,7 @@ public class PostFacade extends AbstractFacade<Post> {
     
         public List<Post> findByVisibilidad(Integer visibilidad){
         return em.createQuery("SELECT p FROM Post p WHERE p.visibilidad = :visibilidad ORDER BY p.fechaPublicacion DESC")
-                .setParameter("visiblidad", visibilidad)
+                .setParameter("visibilidad", visibilidad)
                 .getResultList();
 }
        // Convenio Visibilidad: 0 Publico 1 Amigos 2 Privado
