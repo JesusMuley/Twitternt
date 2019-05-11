@@ -19,11 +19,15 @@
 	<p style="color:red">Foto de mi perro aceituna <strong>(ATENCION: Muy importante)</strong></p>
 	<img src="https://i.imgur.com/sgSYItU.jpg" width="250" height="250" alt="Olive-1">
 	
+        
+        
+        
+        
 	<h2>Menu de usuario</h2>
 	<ul style="align-content: left">
-		<li><button style="font-family:fantasy">Perfil()</button>
-		<li><button style="font-family:fantasy">Amigos()</button>
-		<li><button style="font-family:fantasy">Grupos()</button>
+		<li><button style="font-family:fantasy">Perfil</button>
+		<li><button style="font-family:fantasy">Amigos(<%=request.getAttribute("n_amigos")%>)</button>
+		<li><button style="font-family:fantasy">Grupos(<%=request.getAttribute("n_grupos")%>)</button>
 		<li><button style="font-family:fantasy">Peticiones de amistad()</button>
 	</ul>
 

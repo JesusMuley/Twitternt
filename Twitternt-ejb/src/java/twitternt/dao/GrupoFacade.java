@@ -41,5 +41,6 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
                 .setParameter("user", user).getResultList(); 
     }
 
+ 
     
 }

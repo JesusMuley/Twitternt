@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import twitternt.dao.AmigosFacade;
+import twitternt.dao.GrupoFacade;
 import twitternt.dao.PostFacade;
+import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Post;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -24,6 +28,15 @@ import twitternt.entity.Post;
  */
 @WebServlet(name = "IndexServlet", urlPatterns = {"/IndexServlet"})
 public class IndexServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
+
+    @EJB
+    private GrupoFacade grupoFacade;
+
+    @EJB
+    private AmigosFacade amigosFacade;
 
     @EJB
     private PostFacade postFacade;
@@ -43,12 +56,23 @@ public class IndexServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);            
             List<Post> listaPost = postFacade.findByVisibilidad(0);
+            Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+             Integer n_amigos = 0;
+             Integer n_grupos = 0;
+            if (u.getAmigosList() != null){
+            n_amigos = u.getAmigosList().size();
+            }
+            if (u.getGrupoList() != null){
+            n_grupos = u.getGrupoList().size();
+            }
             request.setAttribute("listaPost", listaPost);
+            request.setAttribute("n_amigos", n_amigos);
+            request.setAttribute("n_grupos", n_grupos);
             
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("error", "Error al cargar la página de amigos.");
+            request.setAttribute("error", "Error al cargar la página de inicio.");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }

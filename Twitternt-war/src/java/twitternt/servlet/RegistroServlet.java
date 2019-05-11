@@ -43,7 +43,7 @@ public class RegistroServlet extends HttpServlet {
         
         Usuario u = new Usuario();
         String str = request.getParameter("usuario");
-        if(usuarioFacade.findByUserName(str) == null){
+        
             fallo = "n";
             u.setNombreUsuario(str);
             str = request.getParameter("password");
@@ -56,7 +56,7 @@ public class RegistroServlet extends HttpServlet {
             u.setEmail(str);
             u.setImagen(null);
             usuarioFacade.create(u);
-        }
+        
         
         request.setAttribute("fallo", fallo);
         

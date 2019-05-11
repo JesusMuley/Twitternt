@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
         
         try {
             HttpSession session = request.getSession(true);
-            RequestDispatcher rdExito = this.getServletContext().getRequestDispatcher("/menu.jsp");
+            RequestDispatcher rdExito = this.getServletContext().getRequestDispatcher("/IndexServlet");
             RequestDispatcher rdFallo = this.getServletContext().getRequestDispatcher("/Login.jsp");
             
             Usuario u = new Usuario();
