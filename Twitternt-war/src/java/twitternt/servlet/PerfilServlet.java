@@ -33,9 +33,7 @@ public class PerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Integer userId = (Integer) request.getSession().getAttribute("usuario");
-            
-            request.setAttribute("usuario", userId);
+            Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
             
             RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
             rd.forward(request, response);
