@@ -44,5 +44,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return res;
     }
     
-    
+    public Usuario findById(Integer id){
+        return (Usuario) this.em.createNamedQuery("Usuario.findById").setParameter("id", id).getSingleResult();
+    }
 }
