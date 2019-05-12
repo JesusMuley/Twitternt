@@ -3,3 +3,9 @@
     left : 160px;
 }
 
+.post{
+    background-color: white;
+    border-style: groove;
+    margin-bottom: 5px;
+}
+

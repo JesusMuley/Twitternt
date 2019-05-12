@@ -38,8 +38,10 @@
                 while(iter.hasNext()&& i<20){
                     p = (Post)iter.next();           
                     %>
+                    <div class="post">
                     <h3><%=p.getTexto()%></h3> <br/>
                     <h4><%=p.getFechaPublicacion().toString()%></h4><br/>
+                    </div>
                     
                     <%
                 }
