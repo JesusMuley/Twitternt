@@ -47,7 +47,6 @@ public class GrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
             try {
                 HttpSession session = request.getSession(true); 
                 Usuario usuario = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
@@ -60,7 +59,7 @@ public class GrupoServlet extends HttpServlet {
                 request.setAttribute("usuarios", usuarios);
                 request.setAttribute("posts_grupo", posts);
                 request.setAttribute("admin", admin);
-
+                
                 RequestDispatcher rd = request.getRequestDispatcher("/grupo.jsp");
                 rd.forward(request, response);
             }
