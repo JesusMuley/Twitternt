@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import twitternt.entity.Post;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -42,8 +43,8 @@ public class PostFacade extends AbstractFacade<Post> {
     }
     
     
-    public List<Post> findPublicAndYourPrivate(int id){
-        return em.createQuery("SELECT p FROM Post p WHERE p.visibilidad = 0 OR (p.visibilidad = -1 AND p.usuario = :id OR :id IN (p.usuario.amigosList.usuario.id) OR :id IN (p.usuario.amigosList1.usuario.id))").setParameter("id", id).getResultList();
+    public List<Post> findPublicAndYourPrivate(List<Usuario> listaAmigos){
+        return em.createQuery("SELECT p FROM Post p WHERE p.visibilidad = 0 OR p.usuario IN :listaAmigos").setParameter("listaAmigos", listaAmigos).getResultList();
         
     }
     

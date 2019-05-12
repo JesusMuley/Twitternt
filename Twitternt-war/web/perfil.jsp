@@ -49,9 +49,9 @@
         %>
             <input type="hidden" name="usuarioId" value="<%= u.getId() %>">
             <input type="submit" value="Modificar informacion"/>
+        <%}%>
         </form>
         <%
-        }
         if(peticion){
         %>
         <form action="EnviarSolicitudServlet">
