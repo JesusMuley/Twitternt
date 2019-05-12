@@ -7,26 +7,18 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import twitternt.dao.UsuarioFacade;
-import twitternt.entity.Usuario;
 
 /**
  *
- * @author Trigi
+ * @author Jesús Muley
  */
-@WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
-public class MenuServlet extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "CerrarSesionServlet", urlPatterns = {"/CerrarSesionServlet"})
+public class CerrarSesionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,28 +31,8 @@ public class MenuServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               
-        String botonPulsado = request.getParameter("boton");
-        
-        if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Amigos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/AmigosServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Perfil")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/PerfilServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Solicitudes")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/SolicitudesServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Grupos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/GruposServlet");
-                rd.forward(request, response);
-        } else if (botonPulsado.equals("Logout")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/CerrarSesionServlet");
-                rd.forward(request, response);
-        }
+        request.getSession().invalidate();
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
