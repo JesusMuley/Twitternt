@@ -46,6 +46,7 @@
                         <h6><%=p.getFechaPublicacion().getDay() + "/" + p.getFechaPublicacion().getMonth() + "/" + (p.getFechaPublicacion().getYear()+1900)%></h6><br/>
                     </div>
                     <%
+                        i++;
                 }
                 } else {
                 %>
