@@ -71,16 +71,31 @@ public class AmigosFacade extends AbstractFacade<Amigos> {
     }
 
     public Amigos findFriendByPair(Integer codigoAmigo, Integer userId) {
-        return (Amigos) em.createNamedQuery("Amigos.findFriendByPair")
-                .setParameter("amigo1", codigoAmigo)
-                .setParameter("amigo2", userId)
-                .getSingleResult();
+        try {
+            return (Amigos) em.createNamedQuery("Amigos.findFriendByPair")
+                    .setParameter("amigo1", codigoAmigo)
+                    .setParameter("amigo2", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     public Amigos findPetitionByPair(Integer codigoAmigo, Integer userId) {
-        return (Amigos) em.createNamedQuery("Amigos.findPetitionByPair")
-                .setParameter("amigo1", codigoAmigo)
-                .setParameter("amigo2", userId)
-                .getSingleResult();
+        try {
+            return (Amigos) em.createNamedQuery("Amigos.findPetitionByPair")
+                    .setParameter("amigo1", codigoAmigo)
+                    .setParameter("amigo2", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public boolean sendPetitionAvailable(Integer u1, Integer u2){
+        Amigos a1 = findPetitionByPair(u2, u1);
+        Amigos a2 = findFriendByPair(u2, u1);
+        
+        return a1 == null && a2 == null;
     }
 }

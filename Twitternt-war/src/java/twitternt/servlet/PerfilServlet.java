@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import twitternt.dao.AmigosFacade;
 import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Usuario;
 
@@ -25,7 +26,12 @@ import twitternt.entity.Usuario;
 public class PerfilServlet extends HttpServlet {
 
     @EJB
+    private AmigosFacade amigosFacade;
+
+    @EJB
     private UsuarioFacade usuarioFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +48,18 @@ public class PerfilServlet extends HttpServlet {
             if (request.getParameter("usuario") == null){
                 Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
                 request.setAttribute("usuario", usuarioFacade.findById(userId));
+                request.setAttribute("peticion", false);
             } else{
                 Integer userId = Integer.parseInt(request.getParameter("usuario"));
                 request.setAttribute("usuario", usuarioFacade.findById(userId));
+                
+                if (amigosFacade.sendPetitionAvailable(userId, (Integer)request.getSession(true).getAttribute("usuario"))){
+                    request.setAttribute("peticion", true);
+                } else{
+                    request.setAttribute("peticion", false);
+                }
             }
+            
             RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
