@@ -47,4 +47,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public Usuario findById(Integer id){
         return (Usuario) this.em.createNamedQuery("Usuario.findById").setParameter("id", id).getSingleResult();
     }
+    public List<Usuario> findLikeName(String n){
+        return (List<Usuario>) this.em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE '%:n%' OR u.nombre LIKE '%:n%'").setParameter("n", n).getResultList();
+    }
 }
