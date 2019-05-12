@@ -31,4 +31,8 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
         super(Grupo.class);
     }
     
+    public Grupo findById(int id){
+        return (Grupo) this.em.createNamedQuery("Grupo.findById").setParameter("id", id).getSingleResult();
+    }
+    
 }

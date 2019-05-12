@@ -9,6 +9,7 @@ import twitternt.util.TwitterntException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import twitternt.dao.GrupoFacade;
+import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Grupo;
 import twitternt.entity.Usuario;
 
@@ -27,7 +29,10 @@ import twitternt.entity.Usuario;
 @WebServlet(name = "EliminarGrupoServlet", urlPatterns = {"/EliminarGrupoServlet"})
 public class EliminarGrupoServlet extends HttpServlet {
 
+    @EJB
     private GrupoFacade grupoFacade;
+    @EJB
+    private UsuarioFacade usuarioFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,28 +44,26 @@ public class EliminarGrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
         try {
-            HttpSession session = request.getSession(true);            
-            Grupo g = new Grupo((Integer) session.getAttribute("codigoGrupo"));
-            grupoFacade.remove(g);
+            HttpSession session = request.getSession(true); 
+            Usuario admin = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+            Grupo grupo = grupoFacade.findById((Integer) request.getAttribute("codigoGrupo"));
+       
+            grupo.removeFromUsuarioList(admin);
+            grupoFacade.remove(grupo);
+            admin.removeFromGrupoList(grupo);
+            admin.removeFromGrupoList1(grupo);
+            usuarioFacade.edit(admin);
+
             
-            Usuario u = new Usuario((Integer) session.getAttribute("usuario"));
-            List<Grupo> grupos = u.getGrupoList();
-            List<Grupo> gruposAdmin = u.getGrupoList1();
             
-            request.setAttribute("listaGrupos", grupos);
-            request.setAttribute("listaGruposAdmin", gruposAdmin);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/grupos.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("GruposServlet");
             rd.forward(request, response);
-            
-        } catch (ServletException servletException) {
-        } catch (Exception ex) {
-            String err = "Error al intentar eliminar grupo";
-            request.setAttribute("error", err);
+        }
+        catch (Exception e) {
+            request.setAttribute("error", "Error al eliminar grupo");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
+            rd.forward(request, response);    
         }
     }
 

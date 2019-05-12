@@ -7,6 +7,7 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -47,9 +48,13 @@ public class CrearGrupoServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession(true); 
             Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
-            Grupo g = new Grupo(1, request.getParameter("nombre"));
+            Grupo g = new Grupo();
+            g.setNombre(request.getParameter("nombre"));
             g.setAdmin(u);
             g.setDescripcion(request.getParameter("descripcion"));
+            List<Usuario> lu = new ArrayList<Usuario>();
+            lu.add(u);
+            g.setUsuarioList(lu);
             grupoFacade.create(g);
             u.addGrupo(g);
             u.addGrupo1(g);

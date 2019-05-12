@@ -232,6 +232,13 @@ public class Usuario implements Serializable {
         this.grupoList1.add(g);
     }
 
+    public void removeFromGrupoList(Grupo grupo) {
+        this.grupoList.remove(grupo);
+    }
+    
+    public void removeFromGrupoList1(Grupo grupo) {
+        this.grupoList1.remove(grupo);
+    }
 
     
 }
