@@ -26,6 +26,7 @@ boolean admin = (Boolean)request.getAttribute("admin");
         <title>Vista de Grupo</title>
     </head> 
     <body style="background-color:DodgerBlue;">
+        <div class="pagina">
         <%--Lista de usuarios--%>
         <h2>Usuarios</h2>
         <%
@@ -96,6 +97,6 @@ boolean admin = (Boolean)request.getAttribute("admin");
                 <%
                 }
                 %>
-        
+        </div>
     </body>
 </html>

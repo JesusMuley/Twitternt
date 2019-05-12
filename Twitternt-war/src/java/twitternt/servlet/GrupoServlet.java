@@ -51,7 +51,7 @@ public class GrupoServlet extends HttpServlet {
                 HttpSession session = request.getSession(true); 
                 Usuario usuario = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
                 Grupo grupo = grupoFacade.findById(Integer.parseInt(request.getParameter("codigoGrupo")));
-
+                    
                 List<Usuario> usuarios = grupo.getUsuarioList();
                 List<Post> posts = postFacade.findByVisibilidad(grupo.getId());
                 boolean admin = usuario.getId().compareTo(grupo.getAdmin().getId())==0;
@@ -63,6 +63,7 @@ public class GrupoServlet extends HttpServlet {
                 
                 RequestDispatcher rd = request.getRequestDispatcher("/grupo.jsp");
                 rd.forward(request, response);
+                
             }
             catch (Exception e) {
                 request.setAttribute("error", "Error al cargar el grupo");
