@@ -43,7 +43,7 @@ public class AdministrarSolicitudServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
-            Integer codigoSolicitud = (Integer) request.getAttribute("solicitud");
+            Integer codigoSolicitud = Integer.parseInt(request.getParameter("solicitud"));
             String opcion = request.getParameter("boton");
             
             Amigos solicitud = amigosFacade.findPetitionByPair(codigoSolicitud, userId);

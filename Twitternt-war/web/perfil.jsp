@@ -19,13 +19,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil de usuario</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
+        <div class="pagina">
         <h1>Datos del perfil</h1>
-        Nombre de usuario <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
-        Contraseña <br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
-        Nombre <br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" readonly=""/> <br/> <br/>
-        Apellidos <br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
-        Correo electr&oacute;nico <br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
+        <b>Nombre de usuario</b> <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
+        <b>Contraseña </b><br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
+        <b>Nombre </b><br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" readonly=""/> <br/> <br/>
+        <b>Apellidos </b><br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
+        <b>Correo electr&oacute;nico </b><br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
         
         <form action="EnviarSolicitudServlet">
             <input type="submit" value="Enviar solicitud de amistad">
@@ -33,6 +34,6 @@
             
             
         </form>
-        
+        </div>
     </body>
 </html>

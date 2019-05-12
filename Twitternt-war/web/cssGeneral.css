@@ -1,5 +1,11 @@
 .pagina{
     position : absolute;
-    left : 150px;
+    left : 160px;
+}
+
+.post{
+    background-color: white;
+    border-style: groove;
+    margin-bottom: 5px;
 }
 

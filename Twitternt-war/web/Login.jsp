@@ -17,7 +17,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Twittern't</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <h1>Bienvenido a Twittern't</h1>
         <p>Inicia sesi&oacute;n o reg&iacute;strate</p>
         

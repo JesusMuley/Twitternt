@@ -18,9 +18,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Amigos</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <div class="pagina">
-            <h2>Mis amigos</h2>
+            <h1>Mis amigos</h1>
             <table>
 <%
     for (Usuario amigo : listaAmigos){

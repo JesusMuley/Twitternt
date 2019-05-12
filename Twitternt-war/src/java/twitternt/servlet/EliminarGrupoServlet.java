@@ -45,16 +45,17 @@ public class EliminarGrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            
+            
             HttpSession session = request.getSession(true); 
             Usuario admin = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
-            Grupo grupo = grupoFacade.findById((Integer) request.getAttribute("codigoGrupo"));
-       
+            Grupo grupo = grupoFacade.findById(Integer.parseInt(request.getParameter("codigoGrupo")));        
+            
             grupo.removeFromUsuarioList(admin);
             grupoFacade.remove(grupo);
             admin.removeFromGrupoList(grupo);
             admin.removeFromGrupoList1(grupo);
             usuarioFacade.edit(admin);
-
             
             
             RequestDispatcher rd = request.getRequestDispatcher("GruposServlet");

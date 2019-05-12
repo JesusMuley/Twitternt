@@ -18,11 +18,13 @@ List<Usuario> listaSolicitudes = (List<Usuario>) request.getAttribute("listaSoli
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Solicitudes de amistad</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <div class="pagina">
+            <h1>Solicitudes de amistad</h1>
             <table>
 <%
-    for (Usuario solicitud : listaSolicitudes){
+    if (listaSolicitudes.size() > 0){
+        for (Usuario solicitud : listaSolicitudes){
 %>
                 <tr>
                     <td><a href="PerfilServlet?usuario=<%=solicitud.getId()%>"><%=solicitud.getNombre() + " "
@@ -37,7 +39,12 @@ List<Usuario> listaSolicitudes = (List<Usuario>) request.getAttribute("listaSoli
                                                                                         
                 </tr>
 <%
-    }
+        }
+    } else{
+%>
+<h3>No tienes ninguna solicitud pendiente</h3>
+<%
+     }
 %>
             </table>
         </div>
