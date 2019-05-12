@@ -7,11 +7,15 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import twitternt.dao.AmigosFacade;
+import twitternt.entity.Amigos;
 
 /**
  *
@@ -20,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "EnviarSolicitudServlet", urlPatterns = {"/EnviarSolicitudServlet"})
 public class EnviarSolicitudServlet extends HttpServlet {
 
+    @EJB
+    private AmigosFacade amigosFacade;
+
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,7 +39,22 @@ public class EnviarSolicitudServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        try {
+            Integer nuevoAmigo = Integer.parseInt(request.getParameter("amigo"));
+            Integer usuario = (Integer) request.getSession(true).getAttribute("usuario");
+
+            Amigos amistad = new Amigos(usuario, nuevoAmigo);
+            amistad.setSolicitudAceptada(false);
+
+            amigosFacade.create(amistad);
+
+            RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Error al intentar enviar la solicitud de amistad.");
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -10,6 +10,7 @@
 
 <%
     Usuario u = (Usuario)request.getAttribute("usuario");
+    Integer usuario = (Integer)session.getAttribute("usuario");
 %>
 
 <!DOCTYPE html>
@@ -27,13 +28,16 @@
         <b>Nombre </b><br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" readonly=""/> <br/> <br/>
         <b>Apellidos </b><br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
         <b>Correo electr&oacute;nico </b><br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
-        
+        <%
+        if (u.getId() != usuario){
+        %>
         <form action="EnviarSolicitudServlet">
+            <input type="hidden" value="<%=u.getId()%>" name="amigo">
             <input type="submit" value="Enviar solicitud de amistad">
-            
-            
-            
         </form>
+        <%
+        }
+        %>
         </div>
     </body>
 </html>
