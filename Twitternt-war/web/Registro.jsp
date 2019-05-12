@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <h1>Formulario de registro</h1>
         <form action="RegistroServlet" method="POST">
             Nombre de usuario <br/> <input name="usuario" value="" maxsize="30" maxlength="30" /> <br/> <br/>
