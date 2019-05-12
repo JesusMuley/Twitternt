@@ -10,7 +10,8 @@
 <html>
     <style type="text/css">
         .menu{
-            float:left
+            float:left;
+            position: fixed;
         }
         table td{
             width:  auto;
