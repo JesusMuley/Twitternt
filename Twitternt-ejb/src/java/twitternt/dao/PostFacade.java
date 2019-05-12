@@ -36,4 +36,8 @@ public class PostFacade extends AbstractFacade<Post> {
                 .getResultList();
 }
        // Convenio Visibilidad: 0 Publico 1 Amigos 2 Privado
+
+    public Post findById(int id) {
+        return (Post) this.em.createNamedQuery("Post.findById").setParameter("id", id).getSingleResult();
+    }
 }

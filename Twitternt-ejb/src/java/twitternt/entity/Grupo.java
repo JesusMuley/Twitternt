@@ -108,6 +108,7 @@ public class Grupo implements Serializable {
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
     }
+    
 
     public Usuario getAdmin() {
         return admin;
@@ -142,8 +143,8 @@ public class Grupo implements Serializable {
         return "twitternt.entity.Grupo[ id=" + id + " ]";
     }
 
-    public void removeFromUsuarioList(Usuario admin) {
-        this.usuarioList.remove(admin);
+    public void removeFromUsuarioList(Usuario user) {
+        this.usuarioList.remove(user);
     }
     
     

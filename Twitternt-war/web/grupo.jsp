@@ -16,6 +16,7 @@ List<Usuario> u = (List<Usuario>)(request.getAttribute("usuarios"));
 List<Post> p = (List<Post>)(request.getAttribute("posts_grupo"));
 int g = (Integer)request.getAttribute("grupo");
 boolean admin = (Boolean)request.getAttribute("admin");
+int usuarioId = (Integer)session.getAttribute("usuario");
 
 %>
 <!DOCTYPE html>
@@ -38,18 +39,18 @@ boolean admin = (Boolean)request.getAttribute("admin");
                 while(iterU.hasNext()&& j<20){
                     auxU = (Usuario)iterU.next();
             %>
-        <h4> <%=auxU.getNombreUsuario()%> <br/></h4>
-         <% 
-                    if(admin){
-                    %>
-                    <td>
-                        <form action="grupoEliminarU-Servlet">
-                            <input type="hidden" name="codigoGrupo" value=<%=g%>>
-                            <input type="hidden" name="usuarioId" value=<%=auxU.getId()%>>
-                            <input type="submit" value="Eliminar">
-                        </form>>
-                    </td>
-                    <% }%>
+        <h4> <%=auxU.getNombreUsuario()%>
+            <% 
+               if((admin)&&(auxU.getId() != usuarioId)){
+            %>
+                <form action="GrupoEliminarUsuarioServlet">
+                    <input type="hidden" name="codigoGrupo" value=<%=g%>>
+                    <input type="hidden" name="usuarioId" value=<%=auxU.getId()%>>
+                    <input type="submit" value="Eliminar">
+                </form>
+                    
+                <% }%>
+        </h4>
             
             <% 
                 j++;
@@ -79,13 +80,11 @@ boolean admin = (Boolean)request.getAttribute("admin");
                         <% 
                     if(admin){
                     %>
-                    <td>
-                        <form action="grupoEliminarU-Servlet">
+                        <form action="GrupoEliminarPostServlet">
                             <input type="hidden" name="codigoGrupo" value=<%=g%>>
                             <input type="hidden" name="postId" value=<%=auxP.getId()%>>
                             <input type="submit" value="Eliminar">
-                        </form>>
-                    </td>
+                        </form>
                     <% }%>
                     </div>
                     <%
@@ -97,6 +96,12 @@ boolean admin = (Boolean)request.getAttribute("admin");
                 <%
                 }
                 %>
+                
+                 <form action="GrupoPostServlet">
+                    <input type="text" size="50" maxlength="30" name="texto">
+                    <input type="submit" value="Publicar"> <br/>
+                    <input type="hidden" name="visibilidad" value=<%=g%>>
+                </form>
         </div>
     </body>
 </html>
