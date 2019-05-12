@@ -34,5 +34,9 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
     public Grupo findById(int id){
         return (Grupo) this.em.createNamedQuery("Grupo.findById").setParameter("id", id).getSingleResult();
     }
+
+    public List<Grupo> findLikeName(String n) {
+        return (List<Grupo>) this.em.createQuery("SELECT g FROM Grupo g WHERE g.nombre LIKE '%"+n+"%' OR g.nombre LIKE '%"+n+"%'").getResultList();
+    }
     
 }

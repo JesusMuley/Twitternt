@@ -74,6 +74,23 @@
             <form action="crearGrupo.jsp">
                 <input type="submit" value="Nuevo Grupo">
             </form>
+            
         </div>
+            <div class="busqueda">
+            <form action="BusquedaGrupoServlet">
+                <input name="nombre">
+                <input type="submit" value="Buscar Grupo">
+            </form>
+                <%
+                List<Grupo> gruposl  = (List<Grupo>)request.getAttribute("busquedaGrupos");
+                if (gruposl != null){
+                    for(Grupo gr : gruposl){
+                %>
+                <a href="EntrarGrupoServlet?grupo=<%=gr.getId()%>"><%=gr.getNombre()%></a><br>
+                <%
+                    }
+                }
+                %>
+            </div>
     </body>
 </html>

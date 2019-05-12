@@ -7,8 +7,6 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Locale;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,13 +24,17 @@ import twitternt.entity.Usuario;
  *
  * @author adry1
  */
-@WebServlet(name = "GruposServlet", urlPatterns = {"/GruposServlet"})
-public class GruposServlet extends HttpServlet {
-        
+@WebServlet(name = "EntrarGrupoServlet", urlPatterns = {"/EntrarGrupoServlet"})
+public class EntrarGrupoServlet extends HttpServlet {
+    
     @EJB
-    private UsuarioFacade uf;
+    private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private GrupoFacade grupoFacade;
+    
 
-    //private GrupoFacade grupoFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,23 +47,25 @@ public class GruposServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession(true); 
-            Usuario u = uf.findById((Integer) session.getAttribute("usuario"));
-            List<Grupo> grupos = u.getGrupoList();
-            List<Grupo> gruposAdmin = u.getGrupoList1();
-            request.setAttribute("listaGrupos", grupos);
-            request.setAttribute("listaGruposAdmin", gruposAdmin);
-            request.setAttribute("busquedaGrupos", request.getAttribute("gruposFind") );
+                HttpSession session = request.getSession(true); 
+                Usuario usuario = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+                Grupo grupo = grupoFacade.findById(Integer.parseInt(request.getParameter("grupo")));
+                
+                if(!grupo.getUsuarioList().contains(usuario)){
+                    usuario.addGrupo(grupo);
+                    grupo.getUsuarioList().add(usuario);
+                    usuarioFacade.edit(usuario);
+                    grupoFacade.edit(grupo);
+                }
             
-            RequestDispatcher rd = request.getRequestDispatcher("/grupos.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("GrupoServlet?codigoGrupo="+grupo.getId());
             rd.forward(request, response);
         }
         catch (Exception e) {
-            request.setAttribute("error", "Error al cargar la página de grupos.");
+            request.setAttribute("error", "Error al unirse al grupo.");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);    
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

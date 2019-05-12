@@ -4,6 +4,7 @@
     Author     : adry1
 --%>
 
+<%@page import="twitternt.entity.Grupo"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="twitternt.entity.Post"%>
@@ -76,7 +77,7 @@ int usuarioId = (Integer)session.getAttribute("usuario");
                     <div class="post">
                         <h3><a href="PerfilServlet?usuario=<%=auxP.getUsuario().getId()%>"><%=auxP.getUsuario().getNombreUsuario()%></a><%="-" + auxP.getUsuario().getNombre() + " " + auxP.getUsuario().getApellidos()%></h3>
                         <h4><%=auxP.getTexto()%></h4> 
-                        <h6><%=auxP.getFechaPublicacion().getDay() + "/" + auxP.getFechaPublicacion().getMonth() + "/" + (auxP.getFechaPublicacion().getYear()+1900)%></h6><br/>
+                        <h6><%=auxP.getFechaPublicacion().toString()%></h6><br/>
                         <% 
                     if(admin){
                     %>
@@ -102,6 +103,7 @@ int usuarioId = (Integer)session.getAttribute("usuario");
                     <input type="submit" value="Publicar"> <br/>
                     <input type="hidden" name="visibilidad" value=<%=g%>>
                 </form>
+               
         </div>
     </body>
 </html>
