@@ -21,7 +21,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Grupos</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <div class="pagina">
             <h2>Mis Grupos</h2><br/>
                         <table>

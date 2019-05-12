@@ -18,8 +18,9 @@ List<Usuario> listaSolicitudes = (List<Usuario>) request.getAttribute("listaSoli
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Solicitudes de amistad</title>
     </head>
-    <body>
+    <body style="background-color:DodgerBlue;">
         <div class="pagina">
+            <h1>Solicitudes de amistad</h1>
             <table>
 <%
     for (Usuario solicitud : listaSolicitudes){
