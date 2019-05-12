@@ -48,7 +48,7 @@ public class EnviarSolicitudServlet extends HttpServlet {
 
             amigosFacade.create(amistad);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/solicitudes.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
             rd.forward(request, response);
         } catch (Exception e) {
             request.setAttribute("error", "Error al intentar enviar la solicitud de amistad.");

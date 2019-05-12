@@ -50,24 +50,10 @@ public class AmigosFacade extends AbstractFacade<Amigos> {
         return lista;
     }
     
-        private List<Usuario> findPetitionsByUser1(Integer userId){
+    public List<Usuario> findPetitionsByUser(Integer userId){
         return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1.id = :userId AND a.solicitudAceptada = FALSE")
                 .setParameter("userId", userId)
                 .getResultList();
-    }
-    
-    private List<Usuario> findPetitionsByUser2(Integer userId){
-        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario.id = :userId AND a.solicitudAceptada = FALSE")
-                .setParameter("userId", userId)
-                .getResultList();
-    }
-    
-    public List<Usuario> findPetitionsByUser(Integer userId){
-        List<Usuario> lista = findPetitionsByUser1(userId);
-        List<Usuario> lista1 = findPetitionsByUser2(userId);
-        if (lista1.size() > 0)
-            lista.addAll(findPetitionsByUser2(userId));
-        return lista;
     }
 
     public Amigos findFriendByPair(Integer codigoAmigo, Integer userId) {
