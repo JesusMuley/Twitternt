@@ -20,6 +20,7 @@
         <title>Perfil de usuario</title>
     </head>
     <body>
+        <div class="pagina">
         <h1>Datos del perfil</h1>
         Nombre de usuario <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
         Contraseña <br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
@@ -33,6 +34,6 @@
             
             
         </form>
-        
+        </div>
     </body>
 </html>
