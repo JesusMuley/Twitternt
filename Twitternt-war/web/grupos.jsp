@@ -60,7 +60,7 @@
                     </td>
                     <td><form action="EliminarGrupoServlet">
                             <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
-                            <input type="submit" value="Eliminar">
+                            <input type="submit" value="eliminar">
                         </form>
                     </td>
                 </tr>
