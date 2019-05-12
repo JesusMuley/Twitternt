@@ -72,6 +72,6 @@
             <form action="crearGrupo.jsp">
                 <input type="submit" value="Nuevo Grupo">
             </form>
-        </div>  
+        </div>
     </body>
 </html>
