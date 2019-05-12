@@ -52,12 +52,15 @@ public class PublicarServlet extends HttpServlet {
                     String imagen =  request.getParameter("imagen");
                     Integer vi = Integer.parseInt(request.getParameter("visibilidad"));
                     Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+                    
                     Post p = new Post();
                     p.setFechaPublicacion(new Date());
                     p.setTexto(texto);
                     p.setVisibilidad(vi);
                     p.setUsuario(u);
-                    p.setImagen("http://drive.google.com/uc?export=view&id=" + imagen);
+                    if (imagen.length() > 0){
+                        p.setImagen("http://drive.google.com/uc?export=view&id=" + imagen);
+                    }
                     postFacade.create(p);
                     u.addPost(p);
                     RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");

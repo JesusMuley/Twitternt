@@ -42,8 +42,10 @@
                     <div class="post">
                         <h3><a href="PerfilServlet?usuario=<%=p.getUsuario().getId()%>"><%=p.getUsuario().getNombreUsuario()%></a><%="-" + p.getUsuario().getNombre() + " " + p.getUsuario().getApellidos()%></h3>
                         <h4><%=p.getTexto()%></h4>
+                        <%if (p.getImagen() != null) {%>
                         <img src="<%=p.getImagen()%>" width="200" height="150">
-                        <h6><%=p.getFechaPublicacion().getDay() + "/" + p.getFechaPublicacion().getMonth() + "/" + (p.getFechaPublicacion().getYear()+1900)%></h6><br/>
+                        <%}%>
+                        <h6><%=p.getFechaPublicacion().toString()%></h6><br/>
                     </div>
                     <%
                         i++;
