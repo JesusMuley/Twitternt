@@ -63,7 +63,7 @@
             if (lista != null){
                 for (Usuario u : lista){
             %>
-                <a href="PerfilServlet?usuario=<%=u.getId()%>"><%=u.getNombreUsuario()%></a><%="-" + u.getNombre() + " " + u.getApellidos()%>
+            <a href="PerfilServlet?usuario=<%=u.getId()%>"><%=u.getNombreUsuario()%></a><%="-" + u.getNombre() + " " + u.getApellidos()%><br>
             <%
                 }
             }
