@@ -40,8 +40,8 @@
                     %>
                     <div class="post">
                         <h2><%=p.getUsuario().getNombreUsuario()%></h2>
-                        <h3><%=p.getTexto()%></h3> <br/>
-                        <h4><%=p.getFechaPublicacion().toString()%></h4><br/>
+                        <h4><%=p.getTexto()%></h4> 
+                        <h6><%=p.getFechaPublicacion().toString()%></h6><br/>
                     </div>
                     <%
                 }
