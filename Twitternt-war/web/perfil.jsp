@@ -16,6 +16,8 @@
     if(peticion){
         aux = "readonly";
     }
+    
+   
 %>
 
 <!DOCTYPE html>
@@ -29,8 +31,16 @@
         <div class="pagina">
         <h1>Datos del perfil</h1>
         <form action="ModificarUsuarioServlet">
-        <b>Nombre de usuario</b> <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" <%= aux %>/> <br/> <br/>
+        <b>Nombre de usuario</b> <br/> <input name="nombreUsuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" <%= aux %>/> <br/> <br/>
+        <%
+          if(!peticion){  
+        %>
+
         <b>Contraseña </b><br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" <%= aux %>/> <br/> <br/>
+        
+        <%
+          }  
+        %>
         <b>Nombre </b><br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" <%= aux %>/> <br/> <br/>
         <b>Apellidos </b><br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" <%= aux %>/> <br/> <br/>
         <b>Correo electr&oacute;nico </b><br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" <%= aux %>/> <br/> <br/>

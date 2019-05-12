@@ -45,7 +45,7 @@ public class PerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (request.getParameter("usuario") == null || request.getAttribute("usuario")==null){
+            if (request.getParameter("usuario") == null){
                 Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
                 request.setAttribute("usuario", usuarioFacade.findById(userId));
                 request.setAttribute("peticion", false);

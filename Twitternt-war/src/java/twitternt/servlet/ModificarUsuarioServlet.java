@@ -40,7 +40,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
         Usuario u = usuarioFacade.findById(Integer.parseInt(request.getParameter("usuarioId")));
-        String str = request.getParameter("usuario");
+        String str = request.getParameter("nombreUsuario");
         u.setNombreUsuario(str);
         str = request.getParameter("password");
         u.setPassword(str);
@@ -53,6 +53,7 @@ public class ModificarUsuarioServlet extends HttpServlet {
         u.setImagen(null);
         usuarioFacade.edit(u);
         
+        //request.setAttribute("usuario", Integer.parseInt(request.getParameter("usuarioId")));
         RequestDispatcher rd = request.getRequestDispatcher("/PerfilServlet");
         rd.forward(request, response);
     }
