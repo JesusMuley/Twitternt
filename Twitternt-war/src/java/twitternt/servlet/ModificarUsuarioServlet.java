@@ -14,24 +14,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import twitternt.dao.AmigosFacade;
 import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Usuario;
 
 /**
  *
- * @author Trigi
+ * @author Jesús Muley
  */
-@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
-public class PerfilServlet extends HttpServlet {
-
-    @EJB
-    private AmigosFacade amigosFacade;
+@WebServlet(name = "ModificarUsuarioServlet", urlPatterns = {"/ModificarUsuarioServlet"})
+public class ModificarUsuarioServlet extends HttpServlet {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,30 +38,24 @@ public class PerfilServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            if (request.getParameter("usuario") == null || request.getAttribute("usuario")==null){
-                Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
-                request.setAttribute("usuario", usuarioFacade.findById(userId));
-                request.setAttribute("peticion", false);
-            } else{
-                Integer userId = Integer.parseInt(request.getParameter("usuario"));
-                request.setAttribute("usuario", usuarioFacade.findById(userId));
-                
-                if (amigosFacade.sendPetitionAvailable(userId, (Integer)request.getSession(true).getAttribute("usuario"))){
-                    request.setAttribute("peticion", true);
-                } else{
-                    request.setAttribute("peticion", false);
-                }
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
-            rd.forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", "Error al cargar el perfil.");
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-        }
-        }
+        
+        Usuario u = usuarioFacade.findById(Integer.parseInt(request.getParameter("usuarioId")));
+        String str = request.getParameter("usuario");
+        u.setNombreUsuario(str);
+        str = request.getParameter("password");
+        u.setPassword(str);
+        str = request.getParameter("nombre");
+        u.setNombre(str);
+        str = request.getParameter("apellidos");
+        u.setApellidos(str);
+        str = request.getParameter("correo");
+        u.setEmail(str);
+        u.setImagen(null);
+        usuarioFacade.edit(u);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/PerfilServlet");
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

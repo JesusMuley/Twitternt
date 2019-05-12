@@ -12,6 +12,10 @@
     Usuario u = (Usuario)request.getAttribute("usuario");
     Integer usuario = (Integer)session.getAttribute("usuario");
     Boolean peticion = (Boolean)request.getAttribute("peticion");
+    String aux = "";
+    if(peticion){
+        aux = "readonly";
+    }
 %>
 
 <!DOCTYPE html>
@@ -24,21 +28,31 @@
     <body style="background-color:DodgerBlue;">
         <div class="pagina">
         <h1>Datos del perfil</h1>
-        <b>Nombre de usuario</b> <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
-        <b>Contraseña </b><br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" readonly/> <br/> <br/>
-        <b>Nombre </b><br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" readonly=""/> <br/> <br/>
-        <b>Apellidos </b><br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
-        <b>Correo electr&oacute;nico </b><br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" readonly/> <br/> <br/>
+        <form action="ModificarUsuarioServlet">
+        <b>Nombre de usuario</b> <br/> <input name="usuario" value="<%= u.getNombreUsuario() %>" maxsize="30" maxlength="30" <%= aux %>/> <br/> <br/>
+        <b>Contraseña </b><br/> <input type="password" name="password" value="<%= u.getPassword() %>" maxsize="30" maxlength="30" <%= aux %>/> <br/> <br/>
+        <b>Nombre </b><br/> <input name="nombre" value="<%= u.getNombre() %>" maxsize="45" maxlength="45" <%= aux %>/> <br/> <br/>
+        <b>Apellidos </b><br/> <input name="apellidos" value="<%= u.getApellidos() %>" maxsize="60" maxlength="60" <%= aux %>/> <br/> <br/>
+        <b>Correo electr&oacute;nico </b><br/> <input name="correo" value="<%= u.getEmail() %>" maxsize="60" maxlength="60" <%= aux %>/> <br/> <br/>
         <%
-        if (peticion){
+        if (!peticion){
+        %>
+            <input type="hidden" name="usuarioId" value="<%= u.getId() %>">
+            <input type="submit" value="Modificar informacion"/>
+        </form>
+        <%
+        }
+        if(peticion){
         %>
         <form action="EnviarSolicitudServlet">
             <input type="hidden" value="<%=u.getId()%>" name="amigo">
             <input type="submit" value="Enviar solicitud de amistad">
         </form>
+        
         <%
         }
-        %>
+        %>    
+            
         </div>
     </body>
 </html>
