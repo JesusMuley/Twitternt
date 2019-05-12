@@ -63,7 +63,9 @@
                             <input type="submit" value="eliminar">
                         </form>
                     </td>
-                </tr>
+                   
+                
+                 </tr>
 <%
     }
 %>
