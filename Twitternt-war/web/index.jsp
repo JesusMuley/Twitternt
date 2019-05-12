@@ -13,13 +13,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="cssGeneral.css">
 <title>Olive.io</title>
 <meta charset="UTF-8">
 </head>
 
 <!-- NO SE PUEDE LEER LO QUE APARECE ASI -->
 
-<body style="background-color:DodgerBlue;">    
+<body style="background-color:DodgerBlue;"> 
+    <div class="pagina">
     
                 <form action="PublicarServlet">
                     <input type="text" size="50" maxlength="30" name="texto">
@@ -36,7 +38,7 @@
                 while(iter.hasNext()&& i<20){
                     p = (Post)iter.next();           
                     %>
-                    <div style="background-color: white">
+                    <div class="post">
                         <h2><%=p.getUsuario().getNombreUsuario()%></h2>
                         <h3><%=p.getTexto()%></h3> <br/>
                         <h4><%=p.getFechaPublicacion().toString()%></h4><br/>
@@ -50,6 +52,6 @@
                 }
                 %>
 	
-
+    </div>
 </body>
 </html>
