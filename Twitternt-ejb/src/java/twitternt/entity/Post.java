@@ -66,6 +66,7 @@ public class Post implements Serializable {
     @JoinColumn(name = "Usuario", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario usuario;
+    
 
     public Post() {
     }
@@ -128,6 +129,7 @@ public class Post implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
 
     @Override
     public int hashCode() {

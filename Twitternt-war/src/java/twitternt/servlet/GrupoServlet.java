@@ -7,11 +7,21 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import twitternt.dao.GrupoFacade;
+import twitternt.dao.PostFacade;
+import twitternt.dao.UsuarioFacade;
+import twitternt.entity.Grupo;
+import twitternt.entity.Post;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -20,6 +30,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "GrupoServlet", urlPatterns = {"/GrupoServlet"})
 public class GrupoServlet extends HttpServlet {
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+    @EJB
+    private GrupoFacade grupoFacade;
+    @EJB
+    private PostFacade postFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,19 +48,28 @@ public class GrupoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GrupoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GrupoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            try {
+                HttpSession session = request.getSession(true); 
+                Usuario usuario = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+                Grupo grupo = grupoFacade.findById(Integer.parseInt(request.getParameter("codigoGrupo")));
+
+                List<Usuario> usuarios = grupo.getUsuarioList();
+                List<Post> posts = postFacade.findByVisibilidad(grupo.getId());
+                boolean admin = usuario.getId().compareTo(grupo.getAdmin().getId())==0;
+
+                request.setAttribute("usuarios", usuarios);
+                request.setAttribute("posts_grupo", posts);
+                request.setAttribute("admin", admin);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/grupo.jsp");
+                rd.forward(request, response);
+            }
+            catch (Exception e) {
+                request.setAttribute("error", "Error al cargar el grupo");
+                RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+                rd.forward(request, response);    
+            }
         }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
