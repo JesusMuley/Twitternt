@@ -54,5 +54,21 @@
                 %>
 	
     </div>
+        <div class="busqueda">
+        <form action="BusquedaServlet">
+            <input name="nombre">
+            <input type="submit" value="Buscar">
+        </form>
+            <%
+            List<Usuario> lista = (List<Usuario>)request.getAttribute("listaUsuario");
+            if (lista != null){
+                for (Usuario u : lista){
+            %>
+                <a href="PerfilServlet?usuario=<%=u.getId()%>"><%=u.getNombreUsuario()%></a><%="-" + u.getNombre() + " " + u.getApellidos()%>
+            <%
+                }
+            }
+            %>
+        </div>
 </body>
 </html>
