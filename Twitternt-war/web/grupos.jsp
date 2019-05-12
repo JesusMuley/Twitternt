@@ -30,7 +30,7 @@
 %>
                 <tr>
                     <td>
-                        <a href="GrupoServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                        <a href="GrupoServlet?codigoGrupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
                     </td>
                     <td><form action="SalirGrupoServlet">
                             <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
@@ -51,7 +51,7 @@
                 <tr>
                     <td>
                         
-                        <a href="GrupoServlet?grupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
+                        <a href="GrupoServlet?codigoGrupo=<%=grupo.getId()%>"><%=grupo.getNombre()%></a>
                     </td>
                      <td><form action="SalirGrupoServlet">
                             <input type="hidden" name="codigoGrupo" value=<%=grupo.getId()%>>
