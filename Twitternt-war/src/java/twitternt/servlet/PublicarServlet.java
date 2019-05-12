@@ -47,8 +47,8 @@ public class PublicarServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
                 try {
                     HttpSession session = request.getSession(true);  
-                    String texto = (String) request.getAttribute("texto");
-                    Integer vi = (Integer) request.getAttribute("visibilidad");
+                    String texto = (String) request.getParameter("texto");
+                    Integer vi = Integer.parseInt(request.getParameter("visibilidad"));
                     Post p = new Post();
                     p.setFechaPublicacion(new Date());
                     p.setTexto(texto);
