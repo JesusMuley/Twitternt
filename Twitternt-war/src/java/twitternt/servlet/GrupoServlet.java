@@ -59,6 +59,7 @@ public class GrupoServlet extends HttpServlet {
                 request.setAttribute("usuarios", usuarios);
                 request.setAttribute("posts_grupo", posts);
                 request.setAttribute("admin", admin);
+                request.setAttribute("grupo", grupo.getId());
                 
                 RequestDispatcher rd = request.getRequestDispatcher("/grupo.jsp");
                 rd.forward(request, response);
