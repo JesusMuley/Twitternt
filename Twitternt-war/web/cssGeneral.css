@@ -8,3 +8,8 @@
     border-style: groove;
     margin-bottom: 5px;
 }
+
+.busqueda{
+    position: absolute;
+    right:  100px;
+}
