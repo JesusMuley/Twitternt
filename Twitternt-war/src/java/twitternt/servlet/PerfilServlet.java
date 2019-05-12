@@ -39,10 +39,13 @@ public class PerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
-            System.out.println(userId);
-            request.setAttribute("usuario", usuarioFacade.findById(userId));
-            
+            if (request.getParameter("usuario") == null){
+                Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
+                request.setAttribute("usuario", usuarioFacade.findById(userId));
+            } else{
+                Integer userId = Integer.parseInt(request.getParameter("usuario"));
+                request.setAttribute("usuario", usuarioFacade.findById(userId));
+            }
             RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
             rd.forward(request, response);
         } catch (Exception e) {

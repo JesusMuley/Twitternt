@@ -39,7 +39,7 @@
                     p = (Post)iter.next();           
                     %>
                     <div class="post">
-                        <h2><%=p.getUsuario().getNombreUsuario()%></h2>
+                        <h3><a href="PerfilServlet?usuario=<%=p.getUsuario().getId()%>"><%=p.getUsuario().getNombre() + " " + p.getUsuario().getApellidos()%></a></h3>
                         <h4><%=p.getTexto()%></h4> 
                         <h6><%=p.getFechaPublicacion().getDay() + "/" + p.getFechaPublicacion().getMonth() + "/" + (p.getFechaPublicacion().getYear()+1900)%></h6><br/>
                     </div>
