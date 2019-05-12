@@ -7,6 +7,7 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,20 +15,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import twitternt.dao.AmigosFacade;
-import twitternt.entity.Amigos;
+import javax.servlet.http.HttpSession;
+import twitternt.dao.PostFacade;
+import twitternt.dao.UsuarioFacade;
+import twitternt.entity.Post;
+import twitternt.entity.Usuario;
 
+ 
 /**
  *
- * @author Jesús Muley
+ * @author adry1
  */
-@WebServlet(name = "EnviarSolicitudServlet", urlPatterns = {"/EnviarSolicitudServlet"})
-public class EnviarSolicitudServlet extends HttpServlet {
+@WebServlet(name = "GrupoPostServlet", urlPatterns = {"/GrupoPostServlet"})
+public class GrupoPostServlet extends HttpServlet {
 
     @EJB
-    private AmigosFacade amigosFacade;
+    private UsuarioFacade usuarioFacade;
 
-    
+    @EJB
+    private PostFacade postFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,19 +45,23 @@ public class EnviarSolicitudServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            Integer nuevoAmigo = Integer.parseInt(request.getParameter("amigo"));
-            Integer usuario = (Integer) request.getSession(true).getAttribute("usuario");
-
-            Amigos amistad = new Amigos(usuario, nuevoAmigo);
-            amistad.setSolicitudAceptada(false);
-
-            amigosFacade.create(amistad);
-
-            RequestDispatcher rd = request.getRequestDispatcher("/amigos.jsp");
-            rd.forward(request, response);
+                    HttpSession session = request.getSession(true);  
+                    String texto = (String) request.getParameter("texto");
+                    Integer vi = Integer.parseInt(request.getParameter("visibilidad"));
+                    Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
+                    Post p = new Post();
+                    p.setFechaPublicacion(new Date());
+                    p.setTexto(texto);
+                    p.setVisibilidad(vi);
+                    p.setUsuario(u);
+                    postFacade.create(p);
+                    u.addPost(p);
+                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/GrupoServlet");
+                    rd.forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("error", "Error al intentar enviar la solicitud de amistad.");
+            request.setAttribute("error", "Error publicar el post.");
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }

@@ -50,37 +50,38 @@ public class AmigosFacade extends AbstractFacade<Amigos> {
         return lista;
     }
     
-        private List<Usuario> findPetitionsByUser1(Integer userId){
+    public List<Usuario> findPetitionsByUser(Integer userId){
         return em.createQuery("SELECT a.usuario FROM Amigos a WHERE a.usuario1.id = :userId AND a.solicitudAceptada = FALSE")
                 .setParameter("userId", userId)
                 .getResultList();
     }
-    
-    private List<Usuario> findPetitionsByUser2(Integer userId){
-        return em.createQuery("SELECT a.usuario1 FROM Amigos a WHERE a.usuario.id = :userId AND a.solicitudAceptada = FALSE")
-                .setParameter("userId", userId)
-                .getResultList();
-    }
-    
-    public List<Usuario> findPetitionsByUser(Integer userId){
-        List<Usuario> lista = findPetitionsByUser1(userId);
-        List<Usuario> lista1 = findPetitionsByUser2(userId);
-        if (lista1.size() > 0)
-            lista.addAll(findPetitionsByUser2(userId));
-        return lista;
-    }
 
     public Amigos findFriendByPair(Integer codigoAmigo, Integer userId) {
-        return (Amigos) em.createNamedQuery("Amigos.findFriendByPair")
-                .setParameter("amigo1", codigoAmigo)
-                .setParameter("amigo2", userId)
-                .getSingleResult();
+        try {
+            return (Amigos) em.createNamedQuery("Amigos.findFriendByPair")
+                    .setParameter("amigo1", codigoAmigo)
+                    .setParameter("amigo2", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     public Amigos findPetitionByPair(Integer codigoAmigo, Integer userId) {
-        return (Amigos) em.createNamedQuery("Amigos.findPetitionByPair")
-                .setParameter("amigo1", codigoAmigo)
-                .setParameter("amigo2", userId)
-                .getSingleResult();
+        try {
+            return (Amigos) em.createNamedQuery("Amigos.findPetitionByPair")
+                    .setParameter("amigo1", codigoAmigo)
+                    .setParameter("amigo2", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public boolean sendPetitionAvailable(Integer u1, Integer u2){
+        Amigos a1 = findPetitionByPair(u2, u1);
+        Amigos a2 = findFriendByPair(u2, u1);
+        
+        return a1 == null && a2 == null;
     }
 }

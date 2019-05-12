@@ -10,6 +10,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/menu.jsp"/>
+<jsp:include page="/busqueda.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,7 @@
                     p = (Post)iter.next();           
                     %>
                     <div class="post">
-                        <h3><a href="PerfilServlet?usuario=<%=p.getUsuario().getId()%>"><%=p.getUsuario().getNombre() + " " + p.getUsuario().getApellidos()%></a></h3>
+                        <h3><a href="PerfilServlet?usuario=<%=p.getUsuario().getId()%>"><%=p.getUsuario().getNombreUsuario()%></a><%="-" + p.getUsuario().getNombre() + " " + p.getUsuario().getApellidos()%></h3>
                         <h4><%=p.getTexto()%></h4> 
                         <h6><%=p.getFechaPublicacion().getDay() + "/" + p.getFechaPublicacion().getMonth() + "/" + (p.getFechaPublicacion().getYear()+1900)%></h6><br/>
                     </div>
@@ -53,5 +54,21 @@
                 %>
 	
     </div>
+        <div class="busqueda">
+        <form action="BusquedaServlet">
+            <input name="nombre">
+            <input type="submit" value="Buscar">
+        </form>
+            <%
+            List<Usuario> lista = (List<Usuario>)request.getAttribute("listaUsuario");
+            if (lista != null){
+                for (Usuario u : lista){
+            %>
+                <a href="PerfilServlet?usuario=<%=u.getId()%>"><%=u.getNombreUsuario()%></a><%="-" + u.getNombre() + " " + u.getApellidos()%>
+            <%
+                }
+            }
+            %>
+        </div>
 </body>
 </html>
