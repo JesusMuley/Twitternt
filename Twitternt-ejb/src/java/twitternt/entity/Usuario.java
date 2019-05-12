@@ -223,5 +223,22 @@ public class Usuario implements Serializable {
     public String toString() {
         return "twitternt.entity.Usuario[ id=" + id + " ]";
     }
+
+    public void addGrupo(Grupo g) {
+        this.grupoList.add(g);
+    }
+        
+    public void addGrupo1(Grupo g) {
+        this.grupoList1.add(g);
+    }
+
+    public void removeFromGrupoList(Grupo grupo) {
+        this.grupoList.remove(grupo);
+    }
+    
+    public void removeFromGrupoList1(Grupo grupo) {
+        this.grupoList1.remove(grupo);
+    }
+
     
 }

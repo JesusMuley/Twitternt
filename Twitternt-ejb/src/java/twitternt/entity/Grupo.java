@@ -139,5 +139,10 @@ public class Grupo implements Serializable {
     public String toString() {
         return "twitternt.entity.Grupo[ id=" + id + " ]";
     }
+
+    public void removeFromUsuarioList(Usuario admin) {
+        this.usuarioList.remove(admin);
+    }
+    
     
 }

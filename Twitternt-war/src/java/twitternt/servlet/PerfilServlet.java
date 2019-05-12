@@ -7,12 +7,15 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import twitternt.dao.UsuarioFacade;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -20,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
 public class PerfilServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +40,8 @@ public class PerfilServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             Integer userId = (Integer) request.getSession(true).getAttribute("usuario");
+            System.out.println(userId);
+            request.setAttribute("usuario", usuarioFacade.findById(userId));
             
             RequestDispatcher rd = request.getRequestDispatcher("/perfil.jsp");
             rd.forward(request, response);

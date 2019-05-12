@@ -9,6 +9,7 @@
 <%@page import="twitternt.entity.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="menu.jsp"/>
 <%
     List<Grupo> grupos = (List<Grupo>)request.getAttribute("listaGrupos");
     List<Grupo> gruposAdmin = (List<Grupo>)request.getAttribute("listaGruposAdmin");
@@ -22,10 +23,10 @@
     </head>
     <body>
         <div class="pagina">
-            <h2>Mis Grupos</h2>
-            <table>
+            <h2>Mis Grupos</h2><br/>
+                        <table>
 <%
-    for (Grupo grupo : grupos){
+   for (Grupo grupo : grupos){
 %>
                 <tr>
                     <td>
@@ -38,11 +39,11 @@
                     </td>
                 </tr>
 <%
-    }
+   }
 %>
-            </table>
-             <br/>
-            <h2>Grupos que Administro</h2>
+                </table>
+            <br/>
+            <h2>Grupos que Administro</h2><br/>
             <table>
 <%
     for (Grupo grupo : gruposAdmin){
@@ -68,7 +69,7 @@
 %>
             </table>
             <br/>
-            <form action="CrearGrupoServlet">
+            <form action="crearGrupo.jsp">
                 <input type="submit" value="Nuevo Grupo">
             </form>
         </div>  

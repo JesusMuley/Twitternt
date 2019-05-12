@@ -5,10 +5,12 @@
  */
 package twitternt.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import twitternt.entity.Grupo;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -27,6 +29,10 @@ public class GrupoFacade extends AbstractFacade<Grupo> {
 
     public GrupoFacade() {
         super(Grupo.class);
+    }
+    
+    public Grupo findById(int id){
+        return (Grupo) this.em.createNamedQuery("Grupo.findById").setParameter("id", id).getSingleResult();
     }
     
 }

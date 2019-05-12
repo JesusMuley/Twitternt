@@ -7,12 +7,16 @@ package twitternt.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import twitternt.dao.UsuarioFacade;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -20,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletMenu", urlPatterns = {"/ServletMenu"})
 public class MenuServlet extends HttpServlet {
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +39,11 @@ public class MenuServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+               
         String botonPulsado = request.getParameter("boton");
         
         if (botonPulsado.equals("Inicio")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/index.jsp");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Amigos")){
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/AmigosServlet");
@@ -48,7 +55,7 @@ public class MenuServlet extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/SolicitudesServlet");
                 rd.forward(request, response);
         } else if (botonPulsado.equals("Grupos")){
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("7GruposServlet");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/GruposServlet");
                 rd.forward(request, response);
         }
     }
