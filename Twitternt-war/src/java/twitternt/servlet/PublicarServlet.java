@@ -48,7 +48,8 @@ public class PublicarServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
                 try {
                     HttpSession session = request.getSession(true);  
-                    String texto = (String) request.getParameter("texto");
+                    String texto =  request.getParameter("texto");
+                    String imagen =  request.getParameter("imagen");
                     Integer vi = Integer.parseInt(request.getParameter("visibilidad"));
                     Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
                     Post p = new Post();
@@ -56,6 +57,7 @@ public class PublicarServlet extends HttpServlet {
                     p.setTexto(texto);
                     p.setVisibilidad(vi);
                     p.setUsuario(u);
+                    p.setImagen("http://drive.google.com/uc?export=view&id=" + imagen);
                     postFacade.create(p);
                     u.addPost(p);
                     RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");

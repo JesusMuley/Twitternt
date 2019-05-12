@@ -53,7 +53,7 @@ public class Post implements Serializable {
     private String texto;
     @Lob
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String imagen;
     @Basic(optional = false)
     @NotNull
     @Column(name = "visibilidad")
@@ -98,11 +98,11 @@ public class Post implements Serializable {
         this.texto = texto;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

@@ -72,7 +72,7 @@ public class Usuario implements Serializable {
     private String apellidos;
     @Lob
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String imagen;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Grupo> grupoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
@@ -146,11 +146,11 @@ public class Usuario implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

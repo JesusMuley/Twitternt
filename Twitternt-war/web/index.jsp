@@ -26,6 +26,7 @@
                 <form action="PublicarServlet">
                     <input type="text" size="50" maxlength="30" name="texto">
                     <input type="submit" value="Publicar"> <br/>
+                    <input type="text" size="50" maxlength="50" name="imagen" style="margin-top: 2px"><br>
                     <input type="radio" name="visibilidad" value="0"> Publico
                     <input type="radio" name="visibilidad" value="1"> Privado
                 </form>
@@ -40,7 +41,8 @@
                     %>
                     <div class="post">
                         <h3><a href="PerfilServlet?usuario=<%=p.getUsuario().getId()%>"><%=p.getUsuario().getNombreUsuario()%></a><%="-" + p.getUsuario().getNombre() + " " + p.getUsuario().getApellidos()%></h3>
-                        <h4><%=p.getTexto()%></h4> 
+                        <h4><%=p.getTexto()%></h4>
+                        <img src="<%=p.getImagen()%>" width="200" height="150">
                         <h6><%=p.getFechaPublicacion().getDay() + "/" + p.getFechaPublicacion().getMonth() + "/" + (p.getFechaPublicacion().getYear()+1900)%></h6><br/>
                     </div>
                     <%
