@@ -40,4 +40,11 @@ public class PostFacade extends AbstractFacade<Post> {
     public Post findById(int id) {
         return (Post) this.em.createNamedQuery("Post.findById").setParameter("id", id).getSingleResult();
     }
+    
+    
+    public List<Post> findPublicAndYourPrivate(int id){
+        return em.createQuery("SELECT p FROM Post p WHERE p.visibilidad = 0 OR (p.visibilidad = -1 AND p.usuario = :id OR :id IN (p.usuario.amigosList.usuario.id) OR :id IN (p.usuario.amigosList1.usuario.id))").setParameter("id", id).getResultList();
+        
+    }
+    
 }

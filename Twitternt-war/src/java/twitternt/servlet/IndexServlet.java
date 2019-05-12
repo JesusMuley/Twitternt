@@ -55,7 +55,7 @@ public class IndexServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession(true);            
-            List<Post> listaPost = postFacade.findByVisibilidad(0);
+            List<Post> listaPost = postFacade.findPublicAndYourPrivate((Integer)session.getAttribute("usuario"));
 
             request.setAttribute("listaPost", listaPost);
             if (request.getAttribute("listaUsuario") != null){
