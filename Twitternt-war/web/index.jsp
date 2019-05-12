@@ -36,9 +36,11 @@
                 while(iter.hasNext()&& i<20){
                     p = (Post)iter.next();           
                     %>
-                    <h3><%=p.getTexto()%></h3> <br/>
-                    <h4><%=p.getFechaPublicacion().toString()%></h4><br/>
-                    
+                    <div style="background-color: white">
+                        <h2><%=p.getUsuario().getNombreUsuario()%></h2>
+                        <h3><%=p.getTexto()%></h3> <br/>
+                        <h4><%=p.getFechaPublicacion().toString()%></h4><br/>
+                    </div>
                     <%
                 }
                 } else {

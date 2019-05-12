@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import twitternt.dao.PostFacade;
 import twitternt.dao.UsuarioFacade;
 import twitternt.entity.Post;
+import twitternt.entity.Usuario;
 
 /**
  *
@@ -49,12 +50,14 @@ public class PublicarServlet extends HttpServlet {
                     HttpSession session = request.getSession(true);  
                     String texto = (String) request.getParameter("texto");
                     Integer vi = Integer.parseInt(request.getParameter("visibilidad"));
+                    Usuario u = usuarioFacade.findById((Integer) session.getAttribute("usuario"));
                     Post p = new Post();
                     p.setFechaPublicacion(new Date());
                     p.setTexto(texto);
                     p.setVisibilidad(vi);
-                    p.setUsuario(usuarioFacade.findById((Integer)session.getAttribute("usuario")));
+                    p.setUsuario(u);
                     postFacade.create(p);
+                    u.addPost(p);
                     RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/IndexServlet");
                     rd.forward(request, response);
         } catch (Exception e) {

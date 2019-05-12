@@ -240,5 +240,7 @@ public class Usuario implements Serializable {
         this.grupoList1.remove(grupo);
     }
 
-    
+    public void addPost(Post p){
+        this.postList.add(p);
+    }
 }
