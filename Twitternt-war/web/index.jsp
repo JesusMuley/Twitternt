@@ -10,7 +10,6 @@
 <%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/menu.jsp"/>
-<jsp:include page="/busqueda.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
